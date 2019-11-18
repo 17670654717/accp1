@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aptech.mapper.Permissions2Mapper" >
+  <resultMap id="BaseResultMap" type="com.aptech.domain.Permissions2" >
+    <id column="permissions2_id" property="permissions2Id" jdbcType="INTEGER" />
+    <result column="Permissions1_id" property="permissions1Id" jdbcType="INTEGER" />
+    <result column="Permissions2_name" property="permissions2Name" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    permissions2_id, Permissions1_id, Permissions2_name
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aptech.domain.Permissions2Example" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from permissions2
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from permissions2
+    where permissions2_id = #{permissions2Id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from permissions2
+    where permissions2_id = #{permissions2Id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aptech.domain.Permissions2Example" >
+    delete from permissions2
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.aptech.domain.Permissions2" >
+    insert into permissions2 (permissions2_id, Permissions1_id, Permissions2_name
+      )
+    values (#{permissions2Id,jdbcType=INTEGER}, #{permissions1Id,jdbcType=INTEGER}, #{permissions2Name,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.aptech.domain.Permissions2" >
+    insert into permissions2
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="permissions2Id != null" >
+        permissions2_id,
+      </if>
+      <if test="permissions1Id != null" >
+        Permissions1_id,
+      </if>
+      <if test="permissions2Name != null" >
+        Permissions2_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="permissions2Id != null" >
+        #{permissions2Id,jdbcType=INTEGER},
+      </if>
+      <if test="permissions1Id != null" >
+        #{permissions1Id,jdbcType=INTEGER},
+      </if>
+      <if test="permissions2Name != null" >
+        #{permissions2Name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aptech.domain.Permissions2Example" resultType="java.lang.Integer" >
+    select count(*) from permissions2
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update permissions2
+    <set >
+      <if test="record.permissions2Id != null" >
+        permissions2_id = #{record.permissions2Id,jdbcType=INTEGER},
+      </if>
+      <if test="record.permissions1Id != null" >
+        Permissions1_id = #{record.permissions1Id,jdbcType=INTEGER},
+      </if>
+      <if test="record.permissions2Name != null" >
+        Permissions2_name = #{record.permissions2Name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update permissions2
+    set permissions2_id = #{record.permissions2Id,jdbcType=INTEGER},
+      Permissions1_id = #{record.permissions1Id,jdbcType=INTEGER},
+      Permissions2_name = #{record.permissions2Name,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aptech.domain.Permissions2" >
+    update permissions2
+    <set >
+      <if test="permissions1Id != null" >
+        Permissions1_id = #{permissions1Id,jdbcType=INTEGER},
+      </if>
+      <if test="permissions2Name != null" >
+        Permissions2_name = #{permissions2Name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where permissions2_id = #{permissions2Id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aptech.domain.Permissions2" >
+    update permissions2
+    set Permissions1_id = #{permissions1Id,jdbcType=INTEGER},
+      Permissions2_name = #{permissions2Name,jdbcType=VARCHAR}
+    where permissions2_id = #{permissions2Id,jdbcType=INTEGER}
+  </update>
+</mapper>

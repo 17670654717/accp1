@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aptech.mapper.ParticularsMapper" >
+  <resultMap id="BaseResultMap" type="com.aptech.domain.Particulars" >
+    <id column="particularsid" property="particularsid" jdbcType="INTEGER" />
+    <result column="purchaseid" property="purchaseid" jdbcType="INTEGER" />
+    <result column="particularsbarcode" property="particularsbarcode" jdbcType="VARCHAR" />
+    <result column="particularsname" property="particularsname" jdbcType="VARCHAR" />
+    <result column="particularsspecification" property="particularsspecification" jdbcType="VARCHAR" />
+    <result column="particularscostprice" property="particularscostprice" jdbcType="REAL" />
+    <result column="particularsquantity" property="particularsquantity" jdbcType="INTEGER" />
+    <result column="particularsamount" property="particularsamount" jdbcType="REAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    particularsid, purchaseid, particularsbarcode, particularsname, particularsspecification, 
+    particularscostprice, particularsquantity, particularsamount
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aptech.domain.ParticularsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from particulars
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from particulars
+    where particularsid = #{particularsid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from particulars
+    where particularsid = #{particularsid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aptech.domain.ParticularsExample" >
+    delete from particulars
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.aptech.domain.Particulars" >
+    insert into particulars (particularsid, purchaseid, particularsbarcode, 
+      particularsname, particularsspecification, 
+      particularscostprice, particularsquantity, 
+      particularsamount)
+    values (#{particularsid,jdbcType=INTEGER}, #{purchaseid,jdbcType=INTEGER}, #{particularsbarcode,jdbcType=VARCHAR}, 
+      #{particularsname,jdbcType=VARCHAR}, #{particularsspecification,jdbcType=VARCHAR}, 
+      #{particularscostprice,jdbcType=REAL}, #{particularsquantity,jdbcType=INTEGER}, 
+      #{particularsamount,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.aptech.domain.Particulars" >
+    insert into particulars
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="particularsid != null" >
+        particularsid,
+      </if>
+      <if test="purchaseid != null" >
+        purchaseid,
+      </if>
+      <if test="particularsbarcode != null" >
+        particularsbarcode,
+      </if>
+      <if test="particularsname != null" >
+        particularsname,
+      </if>
+      <if test="particularsspecification != null" >
+        particularsspecification,
+      </if>
+      <if test="particularscostprice != null" >
+        particularscostprice,
+      </if>
+      <if test="particularsquantity != null" >
+        particularsquantity,
+      </if>
+      <if test="particularsamount != null" >
+        particularsamount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="particularsid != null" >
+        #{particularsid,jdbcType=INTEGER},
+      </if>
+      <if test="purchaseid != null" >
+        #{purchaseid,jdbcType=INTEGER},
+      </if>
+      <if test="particularsbarcode != null" >
+        #{particularsbarcode,jdbcType=VARCHAR},
+      </if>
+      <if test="particularsname != null" >
+        #{particularsname,jdbcType=VARCHAR},
+      </if>
+      <if test="particularsspecification != null" >
+        #{particularsspecification,jdbcType=VARCHAR},
+      </if>
+      <if test="particularscostprice != null" >
+        #{particularscostprice,jdbcType=REAL},
+      </if>
+      <if test="particularsquantity != null" >
+        #{particularsquantity,jdbcType=INTEGER},
+      </if>
+      <if test="particularsamount != null" >
+        #{particularsamount,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aptech.domain.ParticularsExample" resultType="java.lang.Integer" >
+    select count(*) from particulars
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update particulars
+    <set >
+      <if test="record.particularsid != null" >
+        particularsid = #{record.particularsid,jdbcType=INTEGER},
+      </if>
+      <if test="record.purchaseid != null" >
+        purchaseid = #{record.purchaseid,jdbcType=INTEGER},
+      </if>
+      <if test="record.particularsbarcode != null" >
+        particularsbarcode = #{record.particularsbarcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.particularsname != null" >
+        particularsname = #{record.particularsname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.particularsspecification != null" >
+        particularsspecification = #{record.particularsspecification,jdbcType=VARCHAR},
+      </if>
+      <if test="record.particularscostprice != null" >
+        particularscostprice = #{record.particularscostprice,jdbcType=REAL},
+      </if>
+      <if test="record.particularsquantity != null" >
+        particularsquantity = #{record.particularsquantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.particularsamount != null" >
+        particularsamount = #{record.particularsamount,jdbcType=REAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update particulars
+    set particularsid = #{record.particularsid,jdbcType=INTEGER},
+      purchaseid = #{record.purchaseid,jdbcType=INTEGER},
+      particularsbarcode = #{record.particularsbarcode,jdbcType=VARCHAR},
+      particularsname = #{record.particularsname,jdbcType=VARCHAR},
+      particularsspecification = #{record.particularsspecification,jdbcType=VARCHAR},
+      particularscostprice = #{record.particularscostprice,jdbcType=REAL},
+      particularsquantity = #{record.particularsquantity,jdbcType=INTEGER},
+      particularsamount = #{record.particularsamount,jdbcType=REAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aptech.domain.Particulars" >
+    update particulars
+    <set >
+      <if test="purchaseid != null" >
+        purchaseid = #{purchaseid,jdbcType=INTEGER},
+      </if>
+      <if test="particularsbarcode != null" >
+        particularsbarcode = #{particularsbarcode,jdbcType=VARCHAR},
+      </if>
+      <if test="particularsname != null" >
+        particularsname = #{particularsname,jdbcType=VARCHAR},
+      </if>
+      <if test="particularsspecification != null" >
+        particularsspecification = #{particularsspecification,jdbcType=VARCHAR},
+      </if>
+      <if test="particularscostprice != null" >
+        particularscostprice = #{particularscostprice,jdbcType=REAL},
+      </if>
+      <if test="particularsquantity != null" >
+        particularsquantity = #{particularsquantity,jdbcType=INTEGER},
+      </if>
+      <if test="particularsamount != null" >
+        particularsamount = #{particularsamount,jdbcType=REAL},
+      </if>
+    </set>
+    where particularsid = #{particularsid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aptech.domain.Particulars" >
+    update particulars
+    set purchaseid = #{purchaseid,jdbcType=INTEGER},
+      particularsbarcode = #{particularsbarcode,jdbcType=VARCHAR},
+      particularsname = #{particularsname,jdbcType=VARCHAR},
+      particularsspecification = #{particularsspecification,jdbcType=VARCHAR},
+      particularscostprice = #{particularscostprice,jdbcType=REAL},
+      particularsquantity = #{particularsquantity,jdbcType=INTEGER},
+      particularsamount = #{particularsamount,jdbcType=REAL}
+    where particularsid = #{particularsid,jdbcType=INTEGER}
+  </update>
+</mapper>

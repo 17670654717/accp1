@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aptech.mapper.VipinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.aptech.domain.Vipinfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="vipid" property="vipid" jdbcType="VARCHAR" />
+    <result column="vipname" property="vipname" jdbcType="VARCHAR" />
+    <result column="vipSex" property="vipsex" jdbcType="VARCHAR" />
+    <result column="vipstate" property="vipstate" jdbcType="INTEGER" />
+    <result column="vipphone" property="vipphone" jdbcType="VARCHAR" />
+    <result column="viplevel" property="viplevel" jdbcType="INTEGER" />
+    <result column="vippwd" property="vippwd" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="district" property="district" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, vipid, vipname, vipSex, vipstate, vipphone, viplevel, vippwd, province, city, 
+    district, address
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aptech.domain.VipinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from vipinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from vipinfo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from vipinfo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aptech.domain.VipinfoExample" >
+    delete from vipinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.aptech.domain.Vipinfo" >
+    insert into vipinfo (id, vipid, vipname, 
+      vipSex, vipstate, vipphone, 
+      viplevel, vippwd, province, 
+      city, district, address
+      )
+    values (#{id,jdbcType=INTEGER}, #{vipid,jdbcType=VARCHAR}, #{vipname,jdbcType=VARCHAR}, 
+      #{vipsex,jdbcType=VARCHAR}, #{vipstate,jdbcType=INTEGER}, #{vipphone,jdbcType=VARCHAR}, 
+      #{viplevel,jdbcType=INTEGER}, #{vippwd,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.aptech.domain.Vipinfo" >
+    insert into vipinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="vipid != null" >
+        vipid,
+      </if>
+      <if test="vipname != null" >
+        vipname,
+      </if>
+      <if test="vipsex != null" >
+        vipSex,
+      </if>
+      <if test="vipstate != null" >
+        vipstate,
+      </if>
+      <if test="vipphone != null" >
+        vipphone,
+      </if>
+      <if test="viplevel != null" >
+        viplevel,
+      </if>
+      <if test="vippwd != null" >
+        vippwd,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="district != null" >
+        district,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="vipid != null" >
+        #{vipid,jdbcType=VARCHAR},
+      </if>
+      <if test="vipname != null" >
+        #{vipname,jdbcType=VARCHAR},
+      </if>
+      <if test="vipsex != null" >
+        #{vipsex,jdbcType=VARCHAR},
+      </if>
+      <if test="vipstate != null" >
+        #{vipstate,jdbcType=INTEGER},
+      </if>
+      <if test="vipphone != null" >
+        #{vipphone,jdbcType=VARCHAR},
+      </if>
+      <if test="viplevel != null" >
+        #{viplevel,jdbcType=INTEGER},
+      </if>
+      <if test="vippwd != null" >
+        #{vippwd,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aptech.domain.VipinfoExample" resultType="java.lang.Integer" >
+    select count(*) from vipinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update vipinfo
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.vipid != null" >
+        vipid = #{record.vipid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vipname != null" >
+        vipname = #{record.vipname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vipsex != null" >
+        vipSex = #{record.vipsex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vipstate != null" >
+        vipstate = #{record.vipstate,jdbcType=INTEGER},
+      </if>
+      <if test="record.vipphone != null" >
+        vipphone = #{record.vipphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.viplevel != null" >
+        viplevel = #{record.viplevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.vippwd != null" >
+        vippwd = #{record.vippwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null" >
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.district != null" >
+        district = #{record.district,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update vipinfo
+    set id = #{record.id,jdbcType=INTEGER},
+      vipid = #{record.vipid,jdbcType=VARCHAR},
+      vipname = #{record.vipname,jdbcType=VARCHAR},
+      vipSex = #{record.vipsex,jdbcType=VARCHAR},
+      vipstate = #{record.vipstate,jdbcType=INTEGER},
+      vipphone = #{record.vipphone,jdbcType=VARCHAR},
+      viplevel = #{record.viplevel,jdbcType=INTEGER},
+      vippwd = #{record.vippwd,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      district = #{record.district,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aptech.domain.Vipinfo" >
+    update vipinfo
+    <set >
+      <if test="vipid != null" >
+        vipid = #{vipid,jdbcType=VARCHAR},
+      </if>
+      <if test="vipname != null" >
+        vipname = #{vipname,jdbcType=VARCHAR},
+      </if>
+      <if test="vipsex != null" >
+        vipSex = #{vipsex,jdbcType=VARCHAR},
+      </if>
+      <if test="vipstate != null" >
+        vipstate = #{vipstate,jdbcType=INTEGER},
+      </if>
+      <if test="vipphone != null" >
+        vipphone = #{vipphone,jdbcType=VARCHAR},
+      </if>
+      <if test="viplevel != null" >
+        viplevel = #{viplevel,jdbcType=INTEGER},
+      </if>
+      <if test="vippwd != null" >
+        vippwd = #{vippwd,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        district = #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aptech.domain.Vipinfo" >
+    update vipinfo
+    set vipid = #{vipid,jdbcType=VARCHAR},
+      vipname = #{vipname,jdbcType=VARCHAR},
+      vipSex = #{vipsex,jdbcType=VARCHAR},
+      vipstate = #{vipstate,jdbcType=INTEGER},
+      vipphone = #{vipphone,jdbcType=VARCHAR},
+      viplevel = #{viplevel,jdbcType=INTEGER},
+      vippwd = #{vippwd,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      district = #{district,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
