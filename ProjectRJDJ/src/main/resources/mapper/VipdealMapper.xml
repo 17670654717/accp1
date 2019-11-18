@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aptech.mapper.VipdealMapper" >
+  <resultMap id="BaseResultMap" type="com.aptech.domain.Vipdeal" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="vip_order_number" property="vipOrderNumber" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+    <result column="money" property="money" jdbcType="REAL" />
+    <result column="mode_payment" property="modePayment" jdbcType="VARCHAR" />
+    <result column="dealtime" property="dealtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, vip_order_number, num, money, mode_payment, dealtime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aptech.domain.VipdealExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from vipdeal
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from vipdeal
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from vipdeal
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aptech.domain.VipdealExample" >
+    delete from vipdeal
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.aptech.domain.Vipdeal" >
+    insert into vipdeal (id, vip_order_number, num, 
+      money, mode_payment, dealtime
+      )
+    values (#{id,jdbcType=INTEGER}, #{vipOrderNumber,jdbcType=VARCHAR}, #{num,jdbcType=INTEGER}, 
+      #{money,jdbcType=REAL}, #{modePayment,jdbcType=VARCHAR}, #{dealtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.aptech.domain.Vipdeal" >
+    insert into vipdeal
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="vipOrderNumber != null" >
+        vip_order_number,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="modePayment != null" >
+        mode_payment,
+      </if>
+      <if test="dealtime != null" >
+        dealtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="vipOrderNumber != null" >
+        #{vipOrderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=REAL},
+      </if>
+      <if test="modePayment != null" >
+        #{modePayment,jdbcType=VARCHAR},
+      </if>
+      <if test="dealtime != null" >
+        #{dealtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aptech.domain.VipdealExample" resultType="java.lang.Integer" >
+    select count(*) from vipdeal
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update vipdeal
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.vipOrderNumber != null" >
+        vip_order_number = #{record.vipOrderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.num != null" >
+        num = #{record.num,jdbcType=INTEGER},
+      </if>
+      <if test="record.money != null" >
+        money = #{record.money,jdbcType=REAL},
+      </if>
+      <if test="record.modePayment != null" >
+        mode_payment = #{record.modePayment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dealtime != null" >
+        dealtime = #{record.dealtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update vipdeal
+    set id = #{record.id,jdbcType=INTEGER},
+      vip_order_number = #{record.vipOrderNumber,jdbcType=VARCHAR},
+      num = #{record.num,jdbcType=INTEGER},
+      money = #{record.money,jdbcType=REAL},
+      mode_payment = #{record.modePayment,jdbcType=VARCHAR},
+      dealtime = #{record.dealtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aptech.domain.Vipdeal" >
+    update vipdeal
+    <set >
+      <if test="vipOrderNumber != null" >
+        vip_order_number = #{vipOrderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=REAL},
+      </if>
+      <if test="modePayment != null" >
+        mode_payment = #{modePayment,jdbcType=VARCHAR},
+      </if>
+      <if test="dealtime != null" >
+        dealtime = #{dealtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aptech.domain.Vipdeal" >
+    update vipdeal
+    set vip_order_number = #{vipOrderNumber,jdbcType=VARCHAR},
+      num = #{num,jdbcType=INTEGER},
+      money = #{money,jdbcType=REAL},
+      mode_payment = #{modePayment,jdbcType=VARCHAR},
+      dealtime = #{dealtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

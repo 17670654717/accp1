@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aptech.mapper.PurchasenoteMapper" >
+  <resultMap id="BaseResultMap" type="com.aptech.domain.Purchasenote" >
+    <id column="purchaseid" property="purchaseid" jdbcType="INTEGER" />
+    <result column="delivery time" property="deliveryTime" jdbcType="DATE" />
+    <result column="Supplierid" property="supplierid" jdbcType="INTEGER" />
+    <result column="lister" property="lister" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    purchaseid, "delivery time", Supplierid, lister, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aptech.domain.PurchasenoteExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from purchasenote
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from purchasenote
+    where purchaseid = #{purchaseid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from purchasenote
+    where purchaseid = #{purchaseid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aptech.domain.PurchasenoteExample" >
+    delete from purchasenote
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.aptech.domain.Purchasenote" >
+    insert into purchasenote (purchaseid, "delivery time", Supplierid, 
+      lister, remark)
+    values (#{purchaseid,jdbcType=INTEGER}, #{deliveryTime,jdbcType=DATE}, #{supplierid,jdbcType=INTEGER}, 
+      #{lister,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.aptech.domain.Purchasenote" >
+    insert into purchasenote
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="purchaseid != null" >
+        purchaseid,
+      </if>
+      <if test="deliveryTime != null" >
+        "delivery time",
+      </if>
+      <if test="supplierid != null" >
+        Supplierid,
+      </if>
+      <if test="lister != null" >
+        lister,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="purchaseid != null" >
+        #{purchaseid,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryTime != null" >
+        #{deliveryTime,jdbcType=DATE},
+      </if>
+      <if test="supplierid != null" >
+        #{supplierid,jdbcType=INTEGER},
+      </if>
+      <if test="lister != null" >
+        #{lister,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aptech.domain.PurchasenoteExample" resultType="java.lang.Integer" >
+    select count(*) from purchasenote
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update purchasenote
+    <set >
+      <if test="record.purchaseid != null" >
+        purchaseid = #{record.purchaseid,jdbcType=INTEGER},
+      </if>
+      <if test="record.deliveryTime != null" >
+        "delivery time" = #{record.deliveryTime,jdbcType=DATE},
+      </if>
+      <if test="record.supplierid != null" >
+        Supplierid = #{record.supplierid,jdbcType=INTEGER},
+      </if>
+      <if test="record.lister != null" >
+        lister = #{record.lister,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update purchasenote
+    set purchaseid = #{record.purchaseid,jdbcType=INTEGER},
+      "delivery time" = #{record.deliveryTime,jdbcType=DATE},
+      Supplierid = #{record.supplierid,jdbcType=INTEGER},
+      lister = #{record.lister,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aptech.domain.Purchasenote" >
+    update purchasenote
+    <set >
+      <if test="deliveryTime != null" >
+        "delivery time" = #{deliveryTime,jdbcType=DATE},
+      </if>
+      <if test="supplierid != null" >
+        Supplierid = #{supplierid,jdbcType=INTEGER},
+      </if>
+      <if test="lister != null" >
+        lister = #{lister,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where purchaseid = #{purchaseid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aptech.domain.Purchasenote" >
+    update purchasenote
+    set "delivery time" = #{deliveryTime,jdbcType=DATE},
+      Supplierid = #{supplierid,jdbcType=INTEGER},
+      lister = #{lister,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where purchaseid = #{purchaseid,jdbcType=INTEGER}
+  </update>
+</mapper>

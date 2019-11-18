@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aptech.mapper.GoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.aptech.domain.Goods" >
+    <id column="Goodsid" property="goodsid" jdbcType="INTEGER" />
+    <result column="Goodsname" property="goodsname" jdbcType="VARCHAR" />
+    <result column="barcode" property="barcode" jdbcType="VARCHAR" />
+    <result column="specification" property="specification" jdbcType="VARCHAR" />
+    <result column="inventory" property="inventory" jdbcType="INTEGER" />
+    <result column="GoodsTypeid" property="goodstypeid" jdbcType="INTEGER" />
+    <result column="sales_price" property="salesPrice" jdbcType="REAL" />
+    <result column="cost_price" property="costPrice" jdbcType="REAL" />
+    <result column="online_store" property="onlineStore" jdbcType="VARCHAR" />
+    <result column="picture" property="picture" jdbcType="VARCHAR" />
+    <result column="brand" property="brand" jdbcType="VARCHAR" />
+    <result column="Goodscolorid" property="goodscolorid" jdbcType="INTEGER" />
+    <result column="Goodssizeid" property="goodssizeid" jdbcType="INTEGER" />
+    <result column="Goodsmessage" property="goodsmessage" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    Goodsid, Goodsname, barcode, specification, inventory, GoodsTypeid, sales_price, 
+    cost_price, online_store, picture, brand, Goodscolorid, Goodssizeid, Goodsmessage
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aptech.domain.GoodsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from goods
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from goods
+    where Goodsid = #{goodsid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from goods
+    where Goodsid = #{goodsid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aptech.domain.GoodsExample" >
+    delete from goods
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.aptech.domain.Goods" >
+    insert into goods (Goodsid, Goodsname, barcode, 
+      specification, inventory, GoodsTypeid, 
+      sales_price, cost_price, online_store, 
+      picture, brand, Goodscolorid, 
+      Goodssizeid, Goodsmessage)
+    values (#{goodsid,jdbcType=INTEGER}, #{goodsname,jdbcType=VARCHAR}, #{barcode,jdbcType=VARCHAR}, 
+      #{specification,jdbcType=VARCHAR}, #{inventory,jdbcType=INTEGER}, #{goodstypeid,jdbcType=INTEGER}, 
+      #{salesPrice,jdbcType=REAL}, #{costPrice,jdbcType=REAL}, #{onlineStore,jdbcType=VARCHAR}, 
+      #{picture,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR}, #{goodscolorid,jdbcType=INTEGER}, 
+      #{goodssizeid,jdbcType=INTEGER}, #{goodsmessage,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.aptech.domain.Goods" >
+    insert into goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsid != null" >
+        Goodsid,
+      </if>
+      <if test="goodsname != null" >
+        Goodsname,
+      </if>
+      <if test="barcode != null" >
+        barcode,
+      </if>
+      <if test="specification != null" >
+        specification,
+      </if>
+      <if test="inventory != null" >
+        inventory,
+      </if>
+      <if test="goodstypeid != null" >
+        GoodsTypeid,
+      </if>
+      <if test="salesPrice != null" >
+        sales_price,
+      </if>
+      <if test="costPrice != null" >
+        cost_price,
+      </if>
+      <if test="onlineStore != null" >
+        online_store,
+      </if>
+      <if test="picture != null" >
+        picture,
+      </if>
+      <if test="brand != null" >
+        brand,
+      </if>
+      <if test="goodscolorid != null" >
+        Goodscolorid,
+      </if>
+      <if test="goodssizeid != null" >
+        Goodssizeid,
+      </if>
+      <if test="goodsmessage != null" >
+        Goodsmessage,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsid != null" >
+        #{goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsname != null" >
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="barcode != null" >
+        #{barcode,jdbcType=VARCHAR},
+      </if>
+      <if test="specification != null" >
+        #{specification,jdbcType=VARCHAR},
+      </if>
+      <if test="inventory != null" >
+        #{inventory,jdbcType=INTEGER},
+      </if>
+      <if test="goodstypeid != null" >
+        #{goodstypeid,jdbcType=INTEGER},
+      </if>
+      <if test="salesPrice != null" >
+        #{salesPrice,jdbcType=REAL},
+      </if>
+      <if test="costPrice != null" >
+        #{costPrice,jdbcType=REAL},
+      </if>
+      <if test="onlineStore != null" >
+        #{onlineStore,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null" >
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null" >
+        #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="goodscolorid != null" >
+        #{goodscolorid,jdbcType=INTEGER},
+      </if>
+      <if test="goodssizeid != null" >
+        #{goodssizeid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsmessage != null" >
+        #{goodsmessage,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aptech.domain.GoodsExample" resultType="java.lang.Integer" >
+    select count(*) from goods
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update goods
+    <set >
+      <if test="record.goodsid != null" >
+        Goodsid = #{record.goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsname != null" >
+        Goodsname = #{record.goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.barcode != null" >
+        barcode = #{record.barcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.specification != null" >
+        specification = #{record.specification,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inventory != null" >
+        inventory = #{record.inventory,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodstypeid != null" >
+        GoodsTypeid = #{record.goodstypeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.salesPrice != null" >
+        sales_price = #{record.salesPrice,jdbcType=REAL},
+      </if>
+      <if test="record.costPrice != null" >
+        cost_price = #{record.costPrice,jdbcType=REAL},
+      </if>
+      <if test="record.onlineStore != null" >
+        online_store = #{record.onlineStore,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picture != null" >
+        picture = #{record.picture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brand != null" >
+        brand = #{record.brand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodscolorid != null" >
+        Goodscolorid = #{record.goodscolorid,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodssizeid != null" >
+        Goodssizeid = #{record.goodssizeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsmessage != null" >
+        Goodsmessage = #{record.goodsmessage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update goods
+    set Goodsid = #{record.goodsid,jdbcType=INTEGER},
+      Goodsname = #{record.goodsname,jdbcType=VARCHAR},
+      barcode = #{record.barcode,jdbcType=VARCHAR},
+      specification = #{record.specification,jdbcType=VARCHAR},
+      inventory = #{record.inventory,jdbcType=INTEGER},
+      GoodsTypeid = #{record.goodstypeid,jdbcType=INTEGER},
+      sales_price = #{record.salesPrice,jdbcType=REAL},
+      cost_price = #{record.costPrice,jdbcType=REAL},
+      online_store = #{record.onlineStore,jdbcType=VARCHAR},
+      picture = #{record.picture,jdbcType=VARCHAR},
+      brand = #{record.brand,jdbcType=VARCHAR},
+      Goodscolorid = #{record.goodscolorid,jdbcType=INTEGER},
+      Goodssizeid = #{record.goodssizeid,jdbcType=INTEGER},
+      Goodsmessage = #{record.goodsmessage,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aptech.domain.Goods" >
+    update goods
+    <set >
+      <if test="goodsname != null" >
+        Goodsname = #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="barcode != null" >
+        barcode = #{barcode,jdbcType=VARCHAR},
+      </if>
+      <if test="specification != null" >
+        specification = #{specification,jdbcType=VARCHAR},
+      </if>
+      <if test="inventory != null" >
+        inventory = #{inventory,jdbcType=INTEGER},
+      </if>
+      <if test="goodstypeid != null" >
+        GoodsTypeid = #{goodstypeid,jdbcType=INTEGER},
+      </if>
+      <if test="salesPrice != null" >
+        sales_price = #{salesPrice,jdbcType=REAL},
+      </if>
+      <if test="costPrice != null" >
+        cost_price = #{costPrice,jdbcType=REAL},
+      </if>
+      <if test="onlineStore != null" >
+        online_store = #{onlineStore,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null" >
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null" >
+        brand = #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="goodscolorid != null" >
+        Goodscolorid = #{goodscolorid,jdbcType=INTEGER},
+      </if>
+      <if test="goodssizeid != null" >
+        Goodssizeid = #{goodssizeid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsmessage != null" >
+        Goodsmessage = #{goodsmessage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Goodsid = #{goodsid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aptech.domain.Goods" >
+    update goods
+    set Goodsname = #{goodsname,jdbcType=VARCHAR},
+      barcode = #{barcode,jdbcType=VARCHAR},
+      specification = #{specification,jdbcType=VARCHAR},
+      inventory = #{inventory,jdbcType=INTEGER},
+      GoodsTypeid = #{goodstypeid,jdbcType=INTEGER},
+      sales_price = #{salesPrice,jdbcType=REAL},
+      cost_price = #{costPrice,jdbcType=REAL},
+      online_store = #{onlineStore,jdbcType=VARCHAR},
+      picture = #{picture,jdbcType=VARCHAR},
+      brand = #{brand,jdbcType=VARCHAR},
+      Goodscolorid = #{goodscolorid,jdbcType=INTEGER},
+      Goodssizeid = #{goodssizeid,jdbcType=INTEGER},
+      Goodsmessage = #{goodsmessage,jdbcType=VARCHAR}
+    where Goodsid = #{goodsid,jdbcType=INTEGER}
+  </update>
+</mapper>

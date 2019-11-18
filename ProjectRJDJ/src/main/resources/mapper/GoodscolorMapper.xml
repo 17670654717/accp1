@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aptech.mapper.GoodscolorMapper" >
+  <resultMap id="BaseResultMap" type="com.aptech.domain.Goodscolor" >
+    <id column="Goodscolorid" property="goodscolorid" jdbcType="INTEGER" />
+    <result column="Goodscoloursystemid" property="goodscoloursystemid" jdbcType="VARCHAR" />
+    <result column="color" property="color" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    Goodscolorid, Goodscoloursystemid, color
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aptech.domain.GoodscolorExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from goodscolor
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from goodscolor
+    where Goodscolorid = #{goodscolorid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from goodscolor
+    where Goodscolorid = #{goodscolorid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aptech.domain.GoodscolorExample" >
+    delete from goodscolor
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.aptech.domain.Goodscolor" >
+    insert into goodscolor (Goodscolorid, Goodscoloursystemid, 
+      color)
+    values (#{goodscolorid,jdbcType=INTEGER}, #{goodscoloursystemid,jdbcType=VARCHAR}, 
+      #{color,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.aptech.domain.Goodscolor" >
+    insert into goodscolor
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodscolorid != null" >
+        Goodscolorid,
+      </if>
+      <if test="goodscoloursystemid != null" >
+        Goodscoloursystemid,
+      </if>
+      <if test="color != null" >
+        color,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodscolorid != null" >
+        #{goodscolorid,jdbcType=INTEGER},
+      </if>
+      <if test="goodscoloursystemid != null" >
+        #{goodscoloursystemid,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null" >
+        #{color,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aptech.domain.GoodscolorExample" resultType="java.lang.Integer" >
+    select count(*) from goodscolor
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update goodscolor
+    <set >
+      <if test="record.goodscolorid != null" >
+        Goodscolorid = #{record.goodscolorid,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodscoloursystemid != null" >
+        Goodscoloursystemid = #{record.goodscoloursystemid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.color != null" >
+        color = #{record.color,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update goodscolor
+    set Goodscolorid = #{record.goodscolorid,jdbcType=INTEGER},
+      Goodscoloursystemid = #{record.goodscoloursystemid,jdbcType=VARCHAR},
+      color = #{record.color,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aptech.domain.Goodscolor" >
+    update goodscolor
+    <set >
+      <if test="goodscoloursystemid != null" >
+        Goodscoloursystemid = #{goodscoloursystemid,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null" >
+        color = #{color,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Goodscolorid = #{goodscolorid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aptech.domain.Goodscolor" >
+    update goodscolor
+    set Goodscoloursystemid = #{goodscoloursystemid,jdbcType=VARCHAR},
+      color = #{color,jdbcType=VARCHAR}
+    where Goodscolorid = #{goodscolorid,jdbcType=INTEGER}
+  </update>
+</mapper>
