@@ -161,4 +161,30 @@
     set GoodsTypename = #{goodstypename,jdbcType=VARCHAR}
     where GoodsTypeid = #{goodstypeid,jdbcType=INTEGER}
   </update>
+  
+  
+  
+    <select id="selectgoodstype" resultType="com.aptech.domain.Goodstype">
+ SELECT * FROM `goodstype`
+  </select>
+  
+  
+    <delete id="detelegoodstype">
+      delete from goodstype where GoodsTypeid=#{GoodsTypeid}
+    </delete>
+    
+    <insert id="insertgoodstype" parameterType="com.aptech.domain.Goodstype">
+    INSERT INTO `goodstype`(`goodstypename`) VALUES(#{goodstypename})
+    </insert>
+    
+    <select id="selectdg" resultType="com.aptech.domain.Goodstype">
+     SELECT * FROM `goodstype` where GoodsTypeid=#{GoodsTypeid}
+    </select>
+    
+    
+    <update id="updategoodstype" parameterType="com.aptech.domain.Goodstype">
+    update goodstype
+     set GoodsTypename = #{goodstypename,jdbcType=VARCHAR}
+    where GoodsTypeid = #{goodstypeid,jdbcType=INTEGER}
+    </update>
 </mapper>

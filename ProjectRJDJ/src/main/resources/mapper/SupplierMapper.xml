@@ -273,4 +273,8 @@
       street = #{street,jdbcType=VARCHAR}
     where Supplierid = #{supplierid,jdbcType=INTEGER}
   </update>
+  
+    <select id="selectsupplier" resultType="com.aptech.domain.Supplier">
+  select * from supplier
+  </select>
 </mapper>

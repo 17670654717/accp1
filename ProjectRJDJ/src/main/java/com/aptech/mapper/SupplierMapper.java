@@ -27,4 +27,7 @@ public interface SupplierMapper {
     int updateByPrimaryKeySelective(Supplier record);
 
     int updateByPrimaryKey(Supplier record);
+    
+    
+    List<Supplier>selectsupplier();
 }

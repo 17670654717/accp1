@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 	<head>
 		<meta charset="UTF-8">
 		<title>供应商</title>
 	</head>
-	<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+<link href="layui/css/layui.css" rel="stylesheet" />
+
+<script src="layui/layui.js" type="text/javascript"></script>
+<script src="js/jquery.min.js" type="text/javascript"></script>
 	<style type="text/css">
 		*{
 			padding: 0;
@@ -12,11 +16,15 @@
 		}
 		
 	</style>
-	<script th:src="@{/js/jquery-1.12.4.js}" type="text/javascript" charset="utf-8"></script>
-	<script th:src="@{/js/bootstrap.js}" type="text/javascript" charset="utf-8"></script>
-	<script th:src="@{/js/dialog.js}" type="text/javascript" charset="utf-8"></script>
-	<script th:src="@{/js/vue.js}" type="text/javascript" charset="utf-8"></script>
-	<script th:src="@{/js/axios.min.js}" type="text/javascript" charset="utf-8"></script>
+	<script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/dialog.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/axios.min.js" type="text/javascript" charset="utf-8"></script>
+	
+		<script type="text/javascript" src="js/distpicker.data.js" ></script>
+	<script type="text/javascript" src="js/distpicker.js" ></script>
+	<script type="text/javascript" src="js/main.js" ></script>
 	<body>
 		<!--
         	作者：offline
@@ -61,8 +69,8 @@
 									<td width="8%">操作</td>
 								</tr>
 							</thead>
-							<tbody align="center">
-								<tr>
+							<tbody align="center" id="dasb">
+								<!-- <tr>
 									<td>1</td>
 									<td>阿里</td>
 									<td>阿里巴巴</td>
@@ -75,7 +83,7 @@
 										<a href="javascript:;" data-toggle="modal" data-target="#myModal">修改</a>
 										<a href="#" style="padding-left: 10px;">删除</a>
 									</td>
-								</tr>		
+								</tr>		 -->
 							</tbody>
 						</table>
 					</div>
@@ -131,17 +139,17 @@
 						  
 						   <div class="form-group">
 						    <label for="inputEmail3" class="col-sm-2 control-label">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址</label>
-						    <div class="col-sm-10">
-						      <select style="width: 25%;display: inline-block;" name="check" class="form-control">
-						      	<option value="">请选择省份</option>
+						    <div class="col-sm-10"  data-toggle="distpicker">
+			<select style="width: 25%;display: inline-block;" name="check" class="form-control">
+						      	
 						      </select>
 						      -
 						      <select style="width: 25%;display: inline-block;"  name="check" class="form-control">
-						      	<option value="">请选择城市</option>
+						      	
 						      </select>
 						      -
 						      <select style="width: 25%;display: inline-block;"  name="check" class="form-control">
-						      	<option value="">请选择地区</option>
+						      	
 						      </select>
 						    </div>
 						  </div>
@@ -155,13 +163,35 @@
 		            </div>
 		            <div class="modal-footer" style="text-align: center;">
 		                <button type="button" class="btn btn-default" data-dismiss="modal" style="width: 16.66%;">取消</button>
-		                <button type="button" class="btn btn-success" style="width: 16.66%;">确认</button>
+		                <button type="button" class="btn btn-success" style="width: 16.66%;" onclick="zjia()">确认</button>
 		            </div>
 		        </div><!-- /.modal-content -->
 		    </div><!-- /.modal -->
 		</div>
-		<script type="text/javascript">
-			
-		</script>
+	<script src="js/area.js" type="text/javascript"></script>
+<script src="js/select.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+$(function(){
+	   
+	   $.ajax({
+			url : "/selectsupplier",
+			"success":function(res){
+				$.each(res,function(i,obj){
+					$("#dasb").append("<tr><td>"+obj.supplierid+"</td><td>"+obj.suppliername+"</td><td>"+obj.companyname+"</td><td>"+obj.linkman+"</td><td>-</td><td>"+obj.phone+"</td><td>"+obj.mailbox+"</td><td>"+obj.site+""+obj.street+"</td><td><a href='#' data-toggle='modal' data-target='#myModal'>修改</a><a href='#' style='padding-left: 10px;'>删除</a></td></tr>");
+				})
+				
+			}
+		}); 
+})
+
+
+function zjia(){
+	
+	
+}
+
+
+</script>
 	</body>
 </html>

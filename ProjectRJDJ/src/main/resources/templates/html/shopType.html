@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html  xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8">
 		<title>商品类别</title>
 	</head>
-	<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
 	<style type="text/css">
 		*{
 			padding: 0;
@@ -39,15 +39,15 @@
 									<td width="32%">操作</td>
 								</tr>
 							</thead>
-							<tbody align="center">
-								<tr>
+							<tbody align="center" id="tb">
+								<!-- <tr>
 									<td>1</td>
 									<td>羽绒服</td>
 									<td>
 										<a href="javascript:;" data-toggle="modal" data-target="#myModal">修改</a>
 										<a href="#" style="padding-left: 10px;">删除</a>
 									</td>
-								</tr>
+								</tr> -->
 							</tbody>
 						</table>
 					</div>
@@ -61,27 +61,149 @@
 		        <div class="modal-content">
 		            <div class="modal-header">
 		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		                <h4 class="modal-title" id="myModalLabel">添加类别</h4>
+		                <h4 class="modal-title" id="myModalLabel">新增类别</h4>
 		            </div>
 		            <div class="modal-body" style="padding:50px">
 		            	<form class="form-horizontal">
 						  <div class="form-group">
 						    <label for="inputEmail3" class="col-sm-2 control-label">名&nbsp;称</label>
 						    <div class="col-sm-10">
-						      <input type="text" class="form-control">
+						      <input type="text" class="form-control" name="jb01">
 						    </div>
 						  </div>
 						</form>
 		            </div>
 		            <div class="modal-footer" style="text-align: center;">
 		                <button type="button" class="btn btn-default" data-dismiss="modal" style="width: 16.66%;">取消</button>
-		                <button type="button" class="btn btn-success" style="width: 16.66%;">确认</button>
+		                <button type="button" class="btn btn-success" style="width: 16.66%;" onclick="insert()"  data-dismiss="modal">确认</button>
 		            </div>
 		        </div><!-- /.modal-content -->
 		    </div><!-- /.modal -->
 		</div>
-		<script type="text/javascript">
 		
+		
+				<!-- 模态框（Modal） -->
+		<div class="modal fade" id="myM" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                <h4 class="modal-title" id="myModalLabel">修改类别</h4>
+		            </div>
+		            <div class="modal-body" style="padding:50px">
+		            	<form class="form-horizontal">
+						  <div class="form-group">
+						    <label for="inputEmail3" class="col-sm-2 control-label">名&nbsp;称</label>
+						    <div class="col-sm-10">
+						      <input type="text" class="form-control" name="jb02">
+						      <input type="hidden" name="jb03">
+						    </div>
+						  </div>
+						</form>
+		            </div>
+		            <div class="modal-footer" style="text-align: center;">
+		                <button type="button" class="btn btn-default" data-dismiss="modal" style="width: 16.66%;">取消</button>
+		                <button type="button" class="btn btn-success" style="width: 16.66%;" data-dismiss="modal" onclick="update()">确认</button>
+		            </div>
+		        </div><!-- /.modal-content -->
+		    </div><!-- /.modal -->
+		</div>
+		
+		
+		
+		
+		<script type="text/javascript">
+		   $(function(){
+			   
+			   $.ajax({
+					url : "/selectgoodstype",
+					data :{},
+					contentType : "application/json",
+					dataType : "json",
+					"success":function(res){
+						$.each(res,function(i,obj){
+							$("#tb").append("<tr><td>"+obj.goodstypeid+"</td><td>"+obj.goodstypename+"</td><td><a href='#' data-toggle='modal' data-target='#myM' onclick='selectdg("+obj.goodstypeid+")'>修改</a><a href='#' style='padding-left: 10px;' onclick='detele("+obj.goodstypeid+")'>删除</a></td></tr>");
+						})
+						
+					}
+				}); 
+		   })
+		   
+		   
+		   function detele(id){
+			   
+			   
+			   var kk={
+				   goodstypeid:id
+			   }
+			   
+			   $.ajax({
+				   url : "/detelegoodstype",
+					//type : "post",
+					data :kk,
+					//contentType : "application/json",
+					//dataType : "json",
+					"success":function(res){
+						alert(res)
+					}
+			   })
+			   location.reload()
+
+		   }
+		   
+		   function insert(){
+			   var goodstypename=$("[name=jb01]").val();
+			   var obj={
+					   goodstypename:goodstypename
+			   }
+			   $.ajax({
+					url : "/insertgoodstype",
+					data :obj,
+					"success":function(res){
+						alert(res)
+					}
+				});
+			   location.reload()
+
+		   }
+		   
+		   
+		   function selectdg(id){
+			  var obj={
+					  goodstypeid:id
+			  }			  
+			  $.ajax({
+					url : "/selectdg",
+					data :obj,
+					"success":function(res){
+						$("[name=jb03]").val(res.goodstypeid)
+						$("[name=jb02]").val(res.goodstypename)
+						
+					}
+				}); 
+		   }
+		   
+		   
+		 function  update(){
+			 var goodstypeid=$("[name=jb03]").val()
+			  var goodstypename=$("[name=jb02]").val()
+			  
+			  
+			  var obj={
+				  goodstypeid:goodstypeid,
+				  goodstypename:goodstypename
+		       }	
+			  
+			   $.ajax({
+				   url : "/updategoodstype",
+					data :obj,
+					"success":function(res){
+					}
+			   })
+			   location.reload()
+			 
+		 }
+		   
 		</script>
 	</body>
 </html>

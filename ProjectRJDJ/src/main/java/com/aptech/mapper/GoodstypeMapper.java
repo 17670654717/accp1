@@ -27,4 +27,15 @@ public interface GoodstypeMapper {
     int updateByPrimaryKeySelective(Goodstype record);
 
     int updateByPrimaryKey(Goodstype record);
+    
+    List<Goodstype> selectgoodstype();
+    
+    int detelegoodstype(int GoodsTypeid);
+    
+    int insertgoodstype(Goodstype name);
+    
+    Goodstype selectdg(int GoodsTypeid);
+    
+    
+    int updategoodstype(Goodstype type);
 }
