@@ -164,63 +164,73 @@ public class ShopListExample {
             return (Criteria) this;
         }
 
-        public Criteria andUserIdIsNull() {
-            addCriterion("user_id is null");
+        public Criteria andUaccountIsNull() {
+            addCriterion("uaccount is null");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdIsNotNull() {
-            addCriterion("user_id is not null");
+        public Criteria andUaccountIsNotNull() {
+            addCriterion("uaccount is not null");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdEqualTo(Integer value) {
-            addCriterion("user_id =", value, "userId");
+        public Criteria andUaccountEqualTo(String value) {
+            addCriterion("uaccount =", value, "uaccount");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotEqualTo(Integer value) {
-            addCriterion("user_id <>", value, "userId");
+        public Criteria andUaccountNotEqualTo(String value) {
+            addCriterion("uaccount <>", value, "uaccount");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThan(Integer value) {
-            addCriterion("user_id >", value, "userId");
+        public Criteria andUaccountGreaterThan(String value) {
+            addCriterion("uaccount >", value, "uaccount");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("user_id >=", value, "userId");
+        public Criteria andUaccountGreaterThanOrEqualTo(String value) {
+            addCriterion("uaccount >=", value, "uaccount");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThan(Integer value) {
-            addCriterion("user_id <", value, "userId");
+        public Criteria andUaccountLessThan(String value) {
+            addCriterion("uaccount <", value, "uaccount");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThanOrEqualTo(Integer value) {
-            addCriterion("user_id <=", value, "userId");
+        public Criteria andUaccountLessThanOrEqualTo(String value) {
+            addCriterion("uaccount <=", value, "uaccount");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdIn(List<Integer> values) {
-            addCriterion("user_id in", values, "userId");
+        public Criteria andUaccountLike(String value) {
+            addCriterion("uaccount like", value, "uaccount");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotIn(List<Integer> values) {
-            addCriterion("user_id not in", values, "userId");
+        public Criteria andUaccountNotLike(String value) {
+            addCriterion("uaccount not like", value, "uaccount");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdBetween(Integer value1, Integer value2) {
-            addCriterion("user_id between", value1, value2, "userId");
+        public Criteria andUaccountIn(List<String> values) {
+            addCriterion("uaccount in", values, "uaccount");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("user_id not between", value1, value2, "userId");
+        public Criteria andUaccountNotIn(List<String> values) {
+            addCriterion("uaccount not in", values, "uaccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUaccountBetween(String value1, String value2) {
+            addCriterion("uaccount between", value1, value2, "uaccount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUaccountNotBetween(String value1, String value2) {
+            addCriterion("uaccount not between", value1, value2, "uaccount");
             return (Criteria) this;
         }
 
