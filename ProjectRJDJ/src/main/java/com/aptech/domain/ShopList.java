@@ -3,7 +3,7 @@ package com.aptech.domain;
 public class ShopList {
     private Integer id;
 
-    private Integer userId;
+    private String uaccount;
 
     private String shopName;
 
@@ -26,8 +26,26 @@ public class ShopList {
     private String headSculpture;
 
     private String shopBrief;
+    
+    private Integer num_emp;
 
-    public Integer getId() {
+    @Override
+	public String toString() {
+		return "ShopList [id=" + id + ", uaccount=" + uaccount + ", shopName=" + shopName + ", address=" + address
+				+ ", province=" + province + ", city=" + city + ", district=" + district + ", employees=" + employees
+				+ ", liaison=" + liaison + ", handset=" + handset + ", phone=" + phone + ", headSculpture="
+				+ headSculpture + ", shopBrief=" + shopBrief + ", num_emp=" + num_emp + "]";
+	}
+
+	public Integer getNum_emp() {
+		return num_emp;
+	}
+
+	public void setNum_emp(Integer num_emp) {
+		this.num_emp = num_emp;
+	}
+
+	public Integer getId() {
         return id;
     }
 
@@ -35,12 +53,12 @@ public class ShopList {
         this.id = id;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public String getUaccount() {
+        return uaccount;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUaccount(String uaccount) {
+        this.uaccount = uaccount;
     }
 
     public String getShopName() {

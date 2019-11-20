@@ -6,19 +6,19 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface ShopListMapper {
-	List<ShopList> selectAll();
-	
     int countByExample(ShopListExample example);
 
     int deleteByExample(ShopListExample example);
 
     int deleteByPrimaryKey(Integer id);
 
-    int insert(ShopList record);
+    int insert(ShopList shop);
 
     int insertSelective(ShopList record);
 
     List<ShopList> selectByExample(ShopListExample example);
+    
+    List<ShopList> selectByUaccount(String uaccount);
 
     ShopList selectByPrimaryKey(Integer id);
 

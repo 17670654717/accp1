@@ -34,6 +34,7 @@
 		<!-- mapper接口生成 -->
 		<javaClientGenerator targetPackage="com.aptech.mapper"
 			targetProject="src/main/java" type="XMLMAPPER" />
+			<!-- 
 			<table schema="Employee" tableName="employee"></table>
 			<table schema="Goods" tableName="goods"></table>
 			<table schema="Goodscolor" tableName="goodscolor"></table>
@@ -45,7 +46,9 @@
 			<table schema="Position" tableName="position"></table>
 			<table schema="PositionAuthority" tableName="position authority"></table>
 			<table schema="Purchasenote" tableName="purchasenote"></table>
+			 -->
 			<table schema="Shop_list" tableName="shop_list"></table>
+			<!-- 
 			<table schema="Supplier" tableName="supplier"></table>
 			<table schema="User" tableName="user"></table>
 			<table schema="Vipdeal" tableName="vipdeal"></table>
@@ -55,6 +58,7 @@
 			<table schema="Vipoffset" tableName="vipoffset"></table>
 			<table schema="Viprecharge" tableName="viprecharge"></table>
 			<table schema="Vipstate" tableName="vipstate"></table>
+			 -->
 			
 <!-- 		<table schema="Sys_permissions" tableName="sys_permissions"></table> -->
 <!-- 		<table schema="Sys_roles" tableName="sys_roles"></table> -->
