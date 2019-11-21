@@ -10,6 +10,8 @@
     <result column="employee_pwd" property="employeePwd" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="createtime" property="createtime" jdbcType="DATE" />
+    <result column="shop_name" property="shopName" jdbcType="VARCHAR" />
+    <result column="job_title" property="jobTitle" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -72,6 +74,20 @@
   <sql id="Base_Column_List" >
     id, shop_id, position_id, jobnumber, employee_name, employee_pwd, status, createtime
   </sql>
+  <select id="selectByConditions" resultMap="BaseResultMap" parameterType="com.aptech.domain.Employee" >
+    SELECT e.*,shop_name,job_title,jobnumber,employee_name,employee_pwd 
+    FROM employee e JOIN shop_list s ON e.shop_id=s.id JOIN position p ON e.position_id=p.id 
+    WHERE 1=1 
+    <if test="shopId != null" >
+        AND e.shop_id = #{shopId}
+    </if>
+    <if test="positionId != null" >
+        AND e.position_id = #{positionId}
+    </if>
+    <if test="employeeName != null and employeeName!=''" >
+        AND employee_name LIKE concat('%',#{employeeName},'%')
+    </if>
+  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aptech.domain.EmployeeExample" >
     select
     <if test="distinct" >
@@ -86,11 +102,9 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from employee
-    where id = #{id,jdbcType=INTEGER}
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.aptech.domain.EmployeeExample" >
+    SELECT e.*,shop_name,job_title,jobnumber,employee_name,employee_pwd FROM employee e 
+    JOIN shop_list s ON e.shop_id=s.id JOIN position p ON e.position_id=p.id WHERE e.id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from employee

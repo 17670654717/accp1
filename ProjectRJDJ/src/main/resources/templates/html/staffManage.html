@@ -1,58 +1,67 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="UTF-8">
-		<title>员工管理</title>
-	</head>
-	<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
-	<style type="text/css">
-		*{
-			padding: 0;
-			margin: 0;
-		}
-		#myModal .modal-body .col-sm-2,#myModal2 .modal-body .col-sm-2{
-			margin-top: 7px;
-		}
-		#myModal .modal-body .col-sm-5,#myModal2 .modal-body .col-sm-5{
-			margin-left: -50px;
-		}
-	</style>
-	<script th:src="@{/js/jquery-1.12.4.js}" type="text/javascript" charset="utf-8"></script>
-	<script th:src="@{/js/bootstrap.js}" type="text/javascript" charset="utf-8"></script>
-	<script th:src="@{/js/dialog.js}" type="text/javascript" charset="utf-8"></script>
-	<script th:src="@{/js/vue.js}" type="text/javascript" charset="utf-8"></script>
-	<script th:src="@{/js/axios.min.js}" type="text/javascript" charset="utf-8"></script>
-	<body>
-		<!--
+<head>
+<meta charset="UTF-8">
+<title>员工管理</title>
+</head>
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
+<style type="text/css">
+* {
+	padding: 0;
+	margin: 0;
+}
+
+#myModal .modal-body .col-sm-2, #myModal2 .modal-body .col-sm-2 {
+	margin-top: 7px;
+}
+
+#myModal .modal-body .col-sm-5, #myModal2 .modal-body .col-sm-5 {
+	margin-left: -50px;
+}
+</style>
+<script th:src="@{/js/jquery-1.12.4.js}" type="text/javascript"
+	charset="utf-8"></script>
+<script th:src="@{/js/bootstrap.js}" type="text/javascript"
+	charset="utf-8"></script>
+<script th:src="@{/js/dialog.js}" type="text/javascript" charset="utf-8"></script>
+<script th:src="@{/js/vue.js}" type="text/javascript" charset="utf-8"></script>
+<script th:src="@{/js/axios.min.js}" type="text/javascript"
+	charset="utf-8"></script>
+<body>
+	<!--
         	作者：offline
         	时间：2019-11-12
         	描述：员工管理
         -->
+	<div id="empList">
 		<div class="col-md-10" style="width: 100%;">
 			<div class="row">
 				<div id="tab_yggl" class="tal_none2">
-					<div class="row" style="line-height:52px;margin-bottom:10px;margin-left: 5px;margin-right:15px;border-bottom: 1px solid #e7e7eb;">
-						<div style="padding-left: 0;float: left;">员工管理</div>
-						<div style="float: right;width: 80%;text-align: right;">
+					<div class="row"
+						style="line-height: 52px; margin-bottom: 10px; margin-left: 5px; margin-right: 15px; border-bottom: 1px solid #e7e7eb;">
+						<div style="padding-left: 0; float: left;">员工管理</div>
+						<div style="float: right; width: 80%; text-align: right;">
 							<form action="" method="post">
-								<select class="form-control" style="width: 25.66%; display: inline-block;">
-								  <option>全部店铺</option>
-								  <option>莱米琪</option>
-								</select>
-								
-								<select class="form-control" style="width: 25.66%; display: inline-block;">
-								  <option>全部职位</option>
-								  <option>店长</option>
-								  <option>收银员</option>
-								</select>
-								
-								<input type="text" class="form-control" id="inputEmail3" placeholder="查找" style="width: 26.50%; display: inline-block;">
-								<a class="glyphicon glyphicon-search" style="margin-left: -28px;cursor: pointer;"></a>
-								<button type="button" class="btn btn-success" style="margin-left: 10px; margin-top: -4px;" data-toggle="modal" data-target="#myModal">添加员工</button>
+								<select class="form-control" v-model="shopId"
+									style="width: 25.66%; display: inline-block;">
+									<option value=''>请选择店铺</option>
+									<option v-for="shops in shop" v-bind:value="shops.id">{{shops.shopName}}</option>
+								</select> 
+								<select class="form-control" v-model="positionId"
+									style="width: 25.66%; display: inline-block;">
+									<option value=''>请选择职位</option>
+									<option v-for="poss in pos" v-bind:value="poss.id">{{poss.jobTitle}}</option>
+								</select> <input type="text" class="form-control" id="inputEmail3" v-model="employeeName"
+									placeholder="查找" style="width: 26.50%; display: inline-block;">
+								<a class="glyphicon glyphicon-search"
+									style="margin-left: -28px; cursor: pointer;" @click="goPage(1)"></a>
+								<button type="button" class="btn btn-success"
+									style="margin-left: 10px; margin-top: -4px;"
+									data-toggle="modal" data-target="#myModal">添加员工</button>
 							</form>
 						</div>
 					</div>
-					<div class="row" style="margin-right: 15px;margin-left:5px;">
+					<div class="row" style="margin-right: 15px; margin-left: 5px;">
 						<table class="table table-bordered table-hover table-striped">
 							<thead align="center">
 								<tr class="info">
@@ -66,116 +75,292 @@
 								</tr>
 							</thead>
 							<tbody align="center">
-								<tr>
-									<td>1</td>
-									<td>莱米琪</td>
-									<td>-</td>
-									<td>18670802166</td>
-									<td>总账号</td>
-									<td>******</td>
-									<td data-toggle="modal" data-target="#myModal2">编辑</td>
+								<tr v-for="emps,index in page.list">
+									<td>{{index+1}}</td>
+									<td>{{emps.shopName}}</td>
+									<td>{{emps.jobTitle}}</td>
+									<td>{{emps.jobnumber}}</td>
+									<td>{{emps.employeeName}}</td>
+									<td>{{emps.employeePwd}}</td>
+									<td data-toggle="modal" data-target="#myModal2" @click="selectById(emps.id)">编辑</td>
 								</tr>
 							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="9">
+										<nav>
+											<ul class="pager">
+												<li><a href="#" @click="goFirstPage">首页</a></li>
+												<li><a href="#" @click="goPrePage">上一页</a></li>
+												<li><a href="#" @click="goNextPage">下一页</a></li>
+												<li><a href="#" @click="goLastPage">尾页</a></li>
+											</ul>
+										</nav>
+									</td>
+								</tr>
+							</tfoot>
 						</table>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		 <div class="modal-dialog" role="document">
-		    <div class="modal-content">
-		      <div class="modal-header" style="background-color: gainsboro;">
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <h4 class="modal-title" id="myModalLabel">添加员工</h4>
-		      </div>
-		      <div class="modal-body">
-		      	<div class="form-group" style="margin-top: 30px;">
-				    <label class="col-sm-2 control-label">店铺</label>
-				    <div class="col-sm-5">
-				      <select class="form-control">
-						  <option>请选择店铺</option>
-					  </select>
-				    </div>
-				    <label class="col-sm-2 control-label" >职位</label>
-				    <div class="col-sm-5">
-				      <select class="form-control">
-						  <option>请选择职位</option>
-					  </select>
-				    </div>
-			  	</div>
-			  	<div class="form-group" style="margin-top: 20px;display: inline-block;">
-				    <label class="col-sm-2 control-label">工号</label>
-				    <div class="col-sm-5" style="margin-left: -51px;">
-				      <input type="text" class="form-control" style="width:206.66px">
-				    </div>
-				    <label class="col-sm-2 control-label" >姓名</label>
-				    <div class="col-sm-5"style="margin: -33px 0px 0 325px;">
-				      <input type="password" class="form-control" style="width:206.66px">
-				    </div>
-			  	</div>
-			  	<div class="form-group" >
-				    <label class="col-sm-2 control-label"style="width:94.66px;">密码</label>
-				    <div class="col-sm-5" style="margin-left: -51px;">
-				      <input type="password" class="form-control" style="width:206.66px">
-				    </div>
-			  	</div>
-		      </div>
-		      <div class="modal-footer" style="margin-top: 40px;">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-		        <button type="button" class="btn btn-success">确定</button>
-		      </div>
-		    </div>
-		  </div>
+		
+		<!-- 新增模态框 -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header" style="background-color: gainsboro;">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">添加员工</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-group" style="margin-top: 30px;">
+							<label class="col-sm-2 control-label">店铺</label>
+							<div class="col-sm-5">
+								<select class="form-control" v-model="empAdd.shopId">
+									<option value='0'>请选择店铺</option>
+									<option v-for="shops in shop" v-bind:value="shops.id">{{shops.shopName}}</option>
+								</select>
+							</div>
+							<label class="col-sm-2 control-label">职位</label>
+							<div class="col-sm-5">
+								<select class="form-control" v-model="empAdd.positionId">
+									<option value='0'>请选择职位</option>
+									<option v-for="poss in pos" v-bind:value="poss.id">{{poss.jobTitle}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group"
+							style="margin-top: 20px; display: inline-block;">
+							<label class="col-sm-2 control-label">工号</label>
+							<div class="col-sm-5" style="margin-left: -51px;">
+								<input type="text" class="form-control" style="width: 206.66px" v-model="empAdd.jobnumber">
+							</div>
+							<label class="col-sm-2 control-label">姓名</label>
+							<div class="col-sm-5" style="margin: -33px 0px 0 325px;">
+								<input type="text" class="form-control"
+									style="width: 206.66px" v-model="empAdd.employeeName">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" style="width: 94.66px;">密码</label>
+							<div class="col-sm-5" style="margin-left: -51px;">
+								<input type="text" class="form-control"
+									style="width: 206.66px" v-model="empAdd.employeePwd">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer" style="margin-top: 40px;">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-success" data-dismiss="modal" @click="add">确定</button>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		 <div class="modal-dialog" role="document">
-		    <div class="modal-content">
-		      <div class="modal-header" style="background-color: gainsboro;">
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <h4 class="modal-title" id="myModalLabel">编辑员工</h4>
-		      </div>
-		      <div class="modal-body">
-		      	<div class="form-group" style="margin-top: 30px;">
-				    <label class="col-sm-2 control-label">店铺</label>
-				    <div class="col-sm-5">
-				      <select class="form-control">
-						  <option>请选择店铺</option>
-					  </select>
-				    </div>
-				    <label class="col-sm-2 control-label" >职位</label>
-				    <div class="col-sm-5">
-				      <select class="form-control">
-						  <option>请选择职位</option>
-					  </select>
-				    </div>
-			  	</div>
-			  	<div class="form-group" style="margin-top: 20px;display: inline-block;">
-				    <label class="col-sm-2 control-label">工号</label>
-				    <div class="col-sm-5" style="margin-left: -51px;">
-				      <input type="text" class="form-control" style="width:206.66px">
-				    </div>
-				    <label class="col-sm-2 control-label" >姓名</label>
-				    <div class="col-sm-5"style="margin: -33px 0px 0 325px;">
-				      <input type="password" class="form-control" style="width:206.66px">
-				    </div>
-			  	</div>
-			  	<div class="form-group" >
-				    <label class="col-sm-2 control-label"style="width:94.66px;">密码</label>
-				    <div class="col-sm-5" style="margin-left: -51px;">
-				      <input type="password" class="form-control" style="width:206.66px">
-				    </div>
-			  	</div>
-		      </div>
-		      <div class="modal-footer" style="margin-top: 40px;">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-		        <button type="button" class="btn btn-danger">删除</button>
-		        <button type="button" class="btn btn-success">确定</button>
-		      </div>
-		    </div>
-		  </div>
+		
+		<!-- 修改模态框 -->
+		<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header" style="background-color: gainsboro;">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">编辑员工</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-group" style="margin-top: 30px;">
+							<label class="col-sm-2 control-label">店铺</label>
+							<div class="col-sm-5">
+								<select class="form-control" id="aaa" v-model="empUp.shopId">
+									<option v-for="shops in shop" v-bind:value="shops.id">{{shops.shopName}}</option>
+								</select>
+							</div>
+							<label class="col-sm-2 control-label">职位</label>
+							<div class="col-sm-5">
+								<select class="form-control" v-model="empUp.positionId">
+									<option v-for="poss in pos" v-bind:value="poss.id">{{poss.jobTitle}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group"
+							style="margin-top: 20px; display: inline-block;">
+							<label class="col-sm-2 control-label">工号</label>
+							<div class="col-sm-5" style="margin-left: -51px;">
+								<input type="text" class="form-control" style="width: 206.66px" v-model="empUp.jobnumber">
+							</div>
+							<label class="col-sm-2 control-label">姓名</label>
+							<div class="col-sm-5" style="margin: -33px 0px 0 325px;">
+								<input type="text" class="form-control"
+									style="width: 206.66px" v-model="empUp.employeeName">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" style="width: 94.66px;">密码</label>
+							<div class="col-sm-5" style="margin-left: -51px;">
+								<input type="text" class="form-control"
+									style="width: 206.66px" v-model="empUp.employeePwd">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer" style="margin-top: 40px;">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal" @click="del(empUp.id)">删除</button>
+						<button type="button" class="btn btn-success" data-dismiss="modal" @click="update(empUp.id)">确定</button>
+					</div>
+				</div>
+			</div>
 		</div>
-	</body>
-	<script type="text/javascript">
-			
-	</script>
+	</div>
+</body>
+
+<script type="text/javascript">
+	var emp = new Vue({
+		el : "#empList",
+		data : {
+			page : {
+				list : []
+			},
+			shop :[],
+			pos : [],
+			empAdd : {
+				shopId : "0",
+				positionId : "0",
+				jobnumber : "",
+				employeeName : "",
+				employeePwd : ""
+			},
+			empUp : {
+				list : []
+			},
+			shopId : "",
+			positionId : "",
+			employeeName : ""
+		},
+		methods : {
+			goPage : function(currentPage) {
+				var th = this;
+				console.log(th.positionId);
+				$.ajax({
+					url : "/emp/select",
+					data : {
+						pageNum : currentPage,
+						pageSize : 3,
+						shopId : th.shopId,
+						positionId : th.positionId,
+						employeeName : th.employeeName
+					},
+					success : function(res) {
+						th.page = res;
+					}
+				});
+			},
+			goPrePage : function() {
+				if (this.page.hasPreviousPage) {
+					this.goPage(this.page.prePage, this.page.pageSize);
+				}
+			},
+			goNextPage : function() {
+				if (this.page.hasNextPage) {
+					this.goPage(this.page.nextPage, this.page.pageSize);
+				}
+			},
+			goFirstPage : function() {
+				this.goPage(1, this.page.pageSize);
+			},
+			goLastPage : function() {
+				this.goPage(this.page.pages, this.page.pageSize);
+			},
+			getShop : function(){
+				var th = this;
+				$.ajax({
+					url : "/emp/selectShop",
+					type:"get",
+					data : {},
+					dataType:"json",
+					success : function(res) {
+						th.shop = res;
+					}
+				});
+			},
+			getPos : function(){
+				var th = this;
+				$.ajax({
+					url : "/emp/selectPos",
+					type:"get",
+					data : {},
+					dataType:"json",
+					success : function(res) {
+						th.pos = JSON.parse(JSON.stringify(res));
+						console.info(JSON.stringify(th.pos));
+					}
+				});
+			},
+			selectById : function(id) {
+				$.ajax({
+					url : "/emp/selectById",
+					data : "id=" + id,
+					success : function(res) {
+						emp.empUp = res;
+					}
+				});
+			},
+			del : function(id) {
+				var th = this;
+				$.ajax({
+					url : "/emp/delete",
+					data : "id=" + id,
+					success : function(res) {
+						alert(res.message);
+						th.goPage(1);
+					}
+				});
+			},
+			add : function() {
+				var th = this;
+				$.ajax({
+					url : "/emp/insert",
+					type : "post",
+					data : JSON.stringify(th.empAdd),
+					contentType : "application/json;charset=utf-8",
+					success : function(res) {
+						alert(res.message);
+						th.goPage(1);
+					}
+				});
+			},
+			update : function(id) {
+				var th = this;
+				$.ajax({
+					url : "/emp/update",
+					type : "post",
+					data : JSON.stringify(th.empUp),
+					contentType : "application/json;charset=utf-8",
+					success : function(res) {
+						alert(res.message);
+						th.goPage(1);
+					}
+				});
+			}
+		},
+		<!-- 
+		created(){
+　　　　　　　　	//如果没有这句代码，select中初始化会是空白的，默认选中就无法实现
+        	this.sshop = "111";
+        	this.spod = "111";
+        },
+		-->
+		mounted : function() {
+			this.getShop();
+			this.getPos();
+			this.goPage(1);
+		}
+	});
+</script>
 </html>

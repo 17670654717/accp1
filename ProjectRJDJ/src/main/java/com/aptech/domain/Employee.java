@@ -19,7 +19,35 @@ public class Employee {
 
     private Date createtime;
 
-    public Integer getId() {
+    private String shopName;
+
+    private String jobTitle;
+
+	
+    @Override
+	public String toString() {
+		return "Employee [id=" + id + ", shopId=" + shopId + ", positionId=" + positionId + ", jobnumber=" + jobnumber
+				+ ", employeeName=" + employeeName + ", employeePwd=" + employeePwd + ", status=" + status
+				+ ", createtime=" + createtime + ", shopName=" + shopName + ", jobTitle=" + jobTitle + "]";
+	}
+
+	public String getShopName() {
+		return shopName;
+	}
+
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
+	}
+
+	public String getJobTitle() {
+		return jobTitle;
+	}
+
+	public void setJobTitle(String jobTitle) {
+		this.jobTitle = jobTitle;
+	}
+	
+	public Integer getId() {
         return id;
     }
 
