@@ -43,7 +43,7 @@ public class GoodsController {
 	
 	@RequestMapping("/insertgoodstype")
 	@ResponseBody
-	public int inserttb_detail(Goodstype goodstypename){
+	public int inserttb_detail(@RequestBody Goodstype goodstypename){
 		int list = sb.insertgoodstype(goodstypename);
 		return list;
 	}
@@ -78,12 +78,28 @@ public class GoodsController {
 		return "addPuchase";
 	}
 	
-	//供应商方法开始
+	//供应商方法查询开始
 	@RequestMapping("/selectsupplier")
 	@ResponseBody
 	public List<Supplier> selectsupplier(){
 		System.out.println("1111");
 		List<Supplier>  list= sb.selectsupplier();
+		return list;
+	}
+	
+	//新增
+	@RequestMapping("/insertsupplier")
+	@ResponseBody
+	public int insertsupplier(@RequestBody Supplier supp){
+		int  list= sb.insertsupplier(supp);
+		return list;
+	}
+	
+	
+	@RequestMapping("/detelesupplier")
+	@ResponseBody
+	public int detelesupplier(Supplier supp){
+		int  list= sb.deletesupplier(supp);
 		return list;
 	}
 }

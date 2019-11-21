@@ -46,9 +46,19 @@ public class GoodsService {
 	
 	//供应商
 	public List<Supplier> selectsupplier() {
-		System.out.println("222");
 		List<Supplier> list = mapper01.selectsupplier();
 		
 		return list;
+	}
+	
+	
+	public int insertsupplier(Supplier supp) {
+		return mapper01.insertsupplier(supp);
+	}
+	
+	
+	public int deletesupplier(Supplier supp) {
+		System.out.println("666");
+		return mapper01.deletesupplier(supp);
 	}
 }

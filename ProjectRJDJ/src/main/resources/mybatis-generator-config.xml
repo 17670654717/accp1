@@ -16,7 +16,7 @@
     	c.andNameLike("%"+name+"%");
     	c.andParentidEqualTo(parentId); -->
 	<classPathEntry
-		location="E:\local-repository\mysql\mysql-connector-java\5.1.46\mysql-connector-java-5.1.46.jar" />
+		location="D:\software\cangku\mysql\mysql-connector-java\5.1.6\mysql-connector-java-5.1.6.jar" />
 	<context id="context1">
 		<!-- 注释 -->
 		<commentGenerator>

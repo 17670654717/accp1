@@ -30,4 +30,8 @@ public interface SupplierMapper {
     
     
     List<Supplier>selectsupplier();
+    
+    int insertsupplier(Supplier supp);
+     int deletesupplier(Supplier su);
+    
 }

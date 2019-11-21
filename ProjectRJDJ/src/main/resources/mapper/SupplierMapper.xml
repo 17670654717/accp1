@@ -277,4 +277,11 @@
     <select id="selectsupplier" resultType="com.aptech.domain.Supplier">
   select * from supplier
   </select>
+  
+  <insert id="insertsupplier" parameterType="com.aptech.domain.Supplier">
+  INSERT INTO `supplier`(`suppliername`,`companyname`,`linkman`,`mobilephone`,`phone`,`mailbox`,`site`,`street`)VALUES(#{suppliername},#{companyname},#{linkman},#{mobilephone},#{phone},#{mailbox},#{site},#{street})
+  </insert>
+  <delete id="deletesupplier">
+  delete from supplier where Supplierid=#{supplierid}
+  </delete>
 </mapper>
