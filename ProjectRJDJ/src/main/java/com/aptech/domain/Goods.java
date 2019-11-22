@@ -133,11 +133,35 @@ public class Goods {
         this.goodssizeid = goodssizeid;
     }
 
-    public String getGoodsmessage() {
+    public Goods(Integer goodsid, String goodsname, String barcode, String specification, Integer inventory,
+			Integer goodstypeid, Float salesPrice, Float costPrice, String onlineStore, String picture, String brand,
+			Integer goodscolorid, Integer goodssizeid, String goodsmessage) {
+		super();
+		this.goodsid = goodsid;
+		this.goodsname = goodsname;
+		this.barcode = barcode;
+		this.specification = specification;
+		this.inventory = inventory;
+		this.goodstypeid = goodstypeid;
+		this.salesPrice = salesPrice;
+		this.costPrice = costPrice;
+		this.onlineStore = onlineStore;
+		this.picture = picture;
+		this.brand = brand;
+		this.goodscolorid = goodscolorid;
+		this.goodssizeid = goodssizeid;
+		this.goodsmessage = goodsmessage;
+	}
+
+	public String getGoodsmessage() {
         return goodsmessage;
     }
 
     public void setGoodsmessage(String goodsmessage) {
         this.goodsmessage = goodsmessage;
+    }
+    
+    public Goods() {
+    	
     }
 }
