@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.aptech.domain.Goods;
 import com.aptech.domain.Goodstype;
 import com.aptech.domain.Supplier;
+import com.aptech.domain.ljhgoods;
 import com.aptech.service.GoodsService;
 
 @Controller  
@@ -23,6 +25,32 @@ public class GoodsController {
 	public String spleb() {
 		return "shopType";
 	}
+	
+	
+	//跳供应商
+	@RequestMapping("/supplier")
+	public String spleb2() {
+		return "supplier";
+	}
+	
+	//跳采购单
+	@RequestMapping("/purchase")
+	public String splebh() {
+		return "purchase";
+	}
+	
+	
+	//跳主页面
+		@RequestMapping("/index")
+		public String index() {
+			return "index";
+		}
+		
+		//增加采购单
+		@RequestMapping("/addPuchase")
+		public String index2() {
+			return "addPuchase";
+		}
 	
 	@RequestMapping("/selectgoodstype")
 	@ResponseBody
@@ -66,17 +94,6 @@ public class GoodsController {
 	}
 	
 	
-	//跳供应商
-	@RequestMapping("/supplier")
-	public String spleb2() {
-		return "supplier";
-	}
-	
-	//跳增加采购单
-	@RequestMapping("/add")
-	public String splebh() {
-		return "addPuchase";
-	}
 	
 	//供应商方法查询开始
 	@RequestMapping("/selectsupplier")
@@ -95,11 +112,54 @@ public class GoodsController {
 		return list;
 	}
 	
-	
+	//删除
 	@RequestMapping("/detelesupplier")
 	@ResponseBody
 	public int detelesupplier(Supplier supp){
 		int  list= sb.deletesupplier(supp);
+		return list;
+	}
+	
+	
+	//修改
+	@RequestMapping("/selectsupplierid")
+	@ResponseBody
+	public Supplier selectsupplierid(Supplier supplierid){
+		
+		Supplier  list= sb.selectsupplierid(supplierid);
+		return list;
+	}
+	//修改
+	@RequestMapping("/updatesupplier")
+	@ResponseBody
+	public int updatesupplier(Supplier supp){
+		int  list= sb.updateByPrimaryKey(supp);
+		return list;
+	}
+	
+	//条件查询
+	@RequestMapping("/selectsuppliername")
+	@ResponseBody
+	public List<Supplier> selectsuppliername(Supplier su){
+		List<Supplier>  list= sb.selectsuppliername(su);
+		return list;
+	}
+	
+	//
+	@RequestMapping("/selectgoood")
+	@ResponseBody
+	public List<ljhgoods> selectgoood(){
+		List<ljhgoods>  list= sb.selectsy();
+		return list;
+	}
+	
+	
+	
+	@RequestMapping("/selectgooodsid")
+	@ResponseBody
+	public ljhgoods selectgooodid(ljhgoods goodsid){
+		
+		ljhgoods  list= sb.selectgoodsid(goodsid);
 		return list;
 	}
 }

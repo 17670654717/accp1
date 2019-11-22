@@ -2,8 +2,11 @@ package com.aptech.mapper;
 
 import com.aptech.domain.Goods;
 import com.aptech.domain.GoodsExample;
+import com.aptech.domain.ljhgoods;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 public interface GoodsMapper {
     int countByExample(GoodsExample example);
@@ -18,7 +21,7 @@ public interface GoodsMapper {
 
     List<Goods> selectByExample(GoodsExample example);
 
-    Goods selectByPrimaryKey(Integer goodsid);
+    ljhgoods selectgoodsid(Integer goodsid);
 
     int updateByExampleSelective(@Param("record") Goods record, @Param("example") GoodsExample example);
 
@@ -27,4 +30,12 @@ public interface GoodsMapper {
     int updateByPrimaryKeySelective(Goods record);
 
     int updateByPrimaryKey(Goods record);
+    
+    List<Goods> selectgoood();
+    
+    @Select("select * from goods")
+    List<ljhgoods> selectsy();
+    
+    
+    
 }

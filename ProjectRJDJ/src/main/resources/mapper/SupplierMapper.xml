@@ -284,4 +284,15 @@
   <delete id="deletesupplier">
   delete from supplier where Supplierid=#{supplierid}
   </delete>
+  
+  
+      <select id="selectsupplierid" resultType="com.aptech.domain.Supplier">
+  select * from supplier where `Supplierid`=#{supplierid}
+  </select>
+  
+    <select id="selectsuppliername" resultType="com.aptech.domain.Supplier">
+    SELECT * FROM `supplier`
+    WHERE `Suppliername` LIKE '%${suppliername}%' AND site LIKE '%${site}%'
+  </select>
+  
 </mapper>
