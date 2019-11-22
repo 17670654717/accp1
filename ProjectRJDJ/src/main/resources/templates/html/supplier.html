@@ -4,11 +4,11 @@
 		<meta charset="UTF-8">
 		<title>供应商</title>
 	</head>
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
-<link href="layui/css/layui.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+<link href="/layui/css/layui.css" rel="stylesheet" />
 
-<script src="layui/layui.js" type="text/javascript"></script>
-<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="/layui/layui.js" type="text/javascript"></script>
+<script src="/js/jquery.min.js" type="text/javascript"></script>
 	<style type="text/css">
 		*{
 			padding: 0;
@@ -21,7 +21,6 @@
 	<script src="js/dialog.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/axios.min.js" type="text/javascript" charset="utf-8"></script>
-	
 		<script type="text/javascript" src="js/distpicker.data.js" ></script>
 	<script type="text/javascript" src="js/distpicker.js" ></script>
 	<script type="text/javascript" src="js/main.js" ></script>
@@ -38,18 +37,15 @@
 						<div style="padding-left: 0;float: left;">供应商</div>
 						<div style="float: right;width: 80%;text-align: right;">
 							<form action="" method="post">
-								<label style="font-weight: normal;padding-right: 10px;">地&nbsp;&nbsp;&nbsp;区</label>
-								<select class="form-control" style="width: 20.66%; display: inline-block;">
-								  <option>请选择省份</option>
-								  <option>北京</option>
-								</select>
-								-
-								<select class="form-control" style="width: 20.66%; display: inline-block;">
-								  <option>请选择城市</option>
-								</select>
+							<div class="col-sm-9"  data-toggle="distpicker"    >  
+									
+														<select data-province="---- 选择省 ----"  style="width: 20.66%; display: inline-block;" class="form-control" name="cnm01"></select>
+                                                        <select data-city="---- 选择市 ----" style="width: 20.66%; display: inline-block;" class="form-control" name="cnm02"></select>
+								</div>
 								
-								<input type="text" class="form-control" id="inputEmail3" placeholder="查找" style="width: 24.50%; display: inline-block;">
-								<a class="glyphicon glyphicon-search" style="margin-left: -28px;cursor: pointer;"></a>
+								
+								<input type="text" class="form-control" id="inputEmail3" placeholder="查找" style="width: 24.50%; display: inline-block;" name="cnm03">
+								<a class="glyphicon glyphicon-search" style="margin-left: -28px;cursor: pointer;" onclick="aoop()"></a>
 								<button type="button" class="btn btn-success" style="margin-left: 10px; margin-top: -4px;" data-toggle="modal" data-target="#myModal">添加供应商</button>
 							</form>
 						</div>
@@ -102,53 +98,53 @@
 		            <div class="modal-body" style="padding:50px">
 		            	<form class="form-horizontal">
 						  <div class="form-group">
-						    <label for="inputEmail3" class="col-sm-2 control-label">公司名称</label>
+						    <label for="inputEmail3" class="col-sm-2 control-label">供应商名称</label>
 						    <div class="col-sm-4">
-						      <input type="text" class="form-control">
+						      <input type="text" class="form-control" name="Suppliername">
 						    </div>
 						    
 						     <label for="inputEmail3" class="col-sm-2 control-label"><i style="position: relative;top:4px;right:5px;color: red;">*</i>公司简称</label>
 						    <div class="col-sm-4">
-						      <input type="text" class="form-control">
+						      <input type="text" class="form-control" name="companyname">
 						    </div>
 						  </div>
 						  
 						  <div class="form-group">
 						    <label for="inputEmail3" class="col-sm-2 control-label">联&nbsp;&nbsp;系  人</label>
 						    <div class="col-sm-4">
-						      <input type="text" class="form-control">
+						      <input type="text" class="form-control" name="linkman">
 						    </div>
 						    
 						     <label for="inputEmail3" class="col-sm-2 control-label"><i style="position: relative;top:4px;right:5px;color: red;">*</i>手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机</label>
 						    <div class="col-sm-4">
-						      <input type="text" class="form-control">
+						      <input type="text" class="form-control"  name="mobilephone">
 						    </div>
 						  </div>
 						  
 						  <div class="form-group">
 						    <label for="inputEmail3" class="col-sm-2 control-label">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱</label>
 						    <div class="col-sm-4">
-						      <input type="text" class="form-control">
+						      <input type="text" class="form-control" name="mailbox">
 						    </div>
 						    
 						     <label for="inputEmail3" class="col-sm-2 control-label">电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话</label>
 						    <div class="col-sm-4">
-						      <input type="text" class="form-control">
+						      <input type="text" class="form-control" name="phone">
 						    </div>
 						  </div>
 						  
 						   <div class="form-group">
 						    <label for="inputEmail3" class="col-sm-2 control-label">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址</label>
 						    <div class="col-sm-10"  data-toggle="distpicker">
-			<select style="width: 25%;display: inline-block;" name="check" class="form-control">
+			<select style="width: 25%;display: inline-block;" name="check" class="form-control" id="site01">
 						      	
 						      </select>
 						      -
-						      <select style="width: 25%;display: inline-block;"  name="check" class="form-control">
+						      <select style="width: 25%;display: inline-block;"  name="check" class="form-control" id="site02">
 						      	
 						      </select>
 						      -
-						      <select style="width: 25%;display: inline-block;"  name="check" class="form-control">
+						      <select style="width: 25%;display: inline-block;"  name="check" class="form-control" id="site03">
 						      	
 						      </select>
 						    </div>
@@ -156,7 +152,7 @@
 						  <div class="form-group">
 						    <label for="inputEmail3" class="col-sm-2 control-label">街&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;道</label>
 						    <div class="col-sm-8">
-						      <input type="text" class="form-control">
+						      <input type="text" class="form-control" name="street">
 						    </div>
 						  </div>
 						</form>
@@ -168,17 +164,98 @@
 		        </div><!-- /.modal-content -->
 		    </div><!-- /.modal -->
 		</div>
+		
+		
+		
+		
+				<!-- 模态框（Modal） -->
+		<div class="modal fade" id="myModa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		    <div style="width: 76.66%;"  class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                <h4 class="modal-title" id="myModalLabel">修改供应商</h4>
+		            </div>
+		            <div class="modal-body" style="padding:50px">
+		            	<form class="form-horizontal">
+						  <div class="form-group">
+						    <label for="inputEmail3" class="col-sm-2 control-label">供应商名称</label>
+						    <div class="col-sm-4">
+						      <input type="text" class="form-control" name="suppliername1">
+						    </div>
+						    
+						     <label for="inputEmail3" class="col-sm-2 control-label"><i style="position: relative;top:4px;right:5px;color: red;">*</i>公司简称</label>
+						    <div class="col-sm-4">
+						      <input type="text" class="form-control" name="companyname1">
+						    </div>
+						  </div>
+						  
+						  <div class="form-group">
+						    <label for="inputEmail3" class="col-sm-2 control-label">联&nbsp;&nbsp;系  人</label>
+						    <div class="col-sm-4">
+						      <input type="text" class="form-control" name="linkman1">
+						    </div>
+						    
+						     <label for="inputEmail3" class="col-sm-2 control-label"><i style="position: relative;top:4px;right:5px;color: red;">*</i>手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机</label>
+						    <div class="col-sm-4">
+						      <input type="text" class="form-control"  name="mobilephone1">
+						    </div>
+						  </div>
+						  
+						  <div class="form-group">
+						    <label for="inputEmail3" class="col-sm-2 control-label">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱</label>
+						    <div class="col-sm-4">
+						      <input type="text" class="form-control" name="mailbox1">
+						    </div>
+						    
+						     <label for="inputEmail3" class="col-sm-2 control-label">电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话</label>
+						    <div class="col-sm-4">
+						      <input type="text" class="form-control" name="phone1">
+						    </div>
+						  </div>
+						  
+						   <div class="form-group">
+						    <label for="inputEmail3" class="col-sm-2 control-label">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址</label>
+						    <div class="col-sm-10"  data-toggle="distpicker">
+			<select style="width: 25%;display: inline-block;" name="check" class="form-control" id="site001">
+						      	
+						      </select>
+						      -
+						      <select style="width: 25%;display: inline-block;"  name="check" class="form-control" id="site002">
+						      	
+						      </select>
+						      -
+						      <select style="width: 25%;display: inline-block;"  name="check" class="form-control" id="site003">
+						      	
+						      </select>
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="inputEmail3" class="col-sm-2 control-label">街&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;道</label>
+						    <div class="col-sm-8">
+						      <input type="text" class="form-control" name="street1">
+						      <input type="hidden" name="supplierid">
+						    </div>
+						  </div>
+						</form>
+		            </div>
+		            <div class="modal-footer" style="text-align: center;">
+		                <button type="button" class="btn btn-default" data-dismiss="modal" style="width: 16.66%;">取消</button>
+		                <button type="button" class="btn btn-success" style="width: 16.66%;" onclick="up()">确认</button>
+		            </div>
+		        </div><!-- /.modal-content -->
+		    </div><!-- /.modal -->
+		</div>
 	<script src="js/area.js" type="text/javascript"></script>
 <script src="js/select.js" type="text/javascript"></script>
 <script type="text/javascript">
-
 $(function(){
 	   
 	   $.ajax({
 			url : "/selectsupplier",
 			"success":function(res){
 				$.each(res,function(i,obj){
-					$("#dasb").append("<tr><td>"+obj.supplierid+"</td><td>"+obj.suppliername+"</td><td>"+obj.companyname+"</td><td>"+obj.linkman+"</td><td>-</td><td>"+obj.phone+"</td><td>"+obj.mailbox+"</td><td>"+obj.site+""+obj.street+"</td><td><a href='#' data-toggle='modal' data-target='#myModal'>修改</a><a href='#' style='padding-left: 10px;'>删除</a></td></tr>");
+					$("#dasb").append("<tr><td>"+obj.supplierid+"</td><td>"+obj.suppliername+"</td><td>"+obj.companyname+"</td><td>"+obj.linkman+"</td><td>-</td><td>"+obj.phone+"</td><td>"+obj.mailbox+"</td><td>"+obj.site+""+obj.street+"</td><td><a href='#' data-toggle='modal' data-target='#myModa' onclick='update("+obj.supplierid+")'>修改</a><a href='#' style='padding-left: 10px;' onclick='deletesupplier("+obj.supplierid+")'>删除</a></td></tr>");
 				})
 				
 			}
@@ -187,10 +264,147 @@ $(function(){
 
 
 function zjia(){
-	
+
+		var suppliername=$("[name=Suppliername]").val();
+		var companyname=$("[name=companyname]").val();
+		var linkman=$("[name=linkman]").val();
+		var mobilephone=$("[name=mobilephone]").val();
+		var phone=$("[name=phone]").val();
+		var mailbox=$("[name=mailbox]").val();
+		var site01=$("#site01").val();
+		var site02=$("#site02").val();
+
+		var site03=$("#site03").val();
+        var site=site01+site02+site03
+		var street=$("[name=street]").val();
+
+		
+		var obj = {
+				suppliername : suppliername,
+				companyname : companyname,
+				linkman : linkman,
+				mobilephone : mobilephone,
+				phone : phone,
+				mailbox : mailbox,
+				site : site,
+				street : street
+		}
+				alert( JSON.stringify(obj))
+			$.ajax({
+				url : "/insertsupplier",
+				contentType : "application/json",
+				data : JSON.stringify(obj),
+				type : "post"
+			});
+ 
+		location.reload()
 	
 }
 
+
+function deletesupplier(id){
+	
+	  var kk={
+			  supplierid:id
+		   }
+		   
+		   $.ajax({
+			   url : "/detelesupplier",
+				//type : "post",
+				data :kk,
+				"success":function(res){
+					alert(res)
+				}
+		   })
+		   location.reload()
+
+}
+
+function update(id){
+	  var obj={
+			  supplierid:id
+	  }			  
+	  $.ajax({
+			url : "/selectsupplierid",
+			data :obj,
+			"success":function(res){
+				$("[name=suppliername1]").val(res.suppliername)
+				$("[name=companyname1]").val(res.companyname)
+				$("[name=linkman1]").val(res.linkman)
+				$("[name=mobilephone1]").val(res.mobilephone)
+				$("[name=phone1]").val(res.phone)
+				$("[name=mailbox1]").val(res.mailbox)
+				$("[name=street1]").val(res.street)
+				$("[name=supplierid]").val(res.supplierid)
+
+			}
+		}); 
+	  
+	  
+}
+
+
+function up(){
+	 var supplierid=$("[name=supplierid]").val()
+	 var suppliername=$("[name=suppliername1]").val()
+	 var companyname=$("[name=companyname1]").val()
+	 var linkman=$("[name=linkman1]").val()
+	 var mobilephone=$("[name=mobilephone1]").val()
+	 var phone=$("[name=phone1]").val()
+	 var mailbox=$("[name=mailbox1]").val()
+	 
+	 
+	    var site01=$("#site001").val();
+		var site02=$("#site002").val();
+		var site03=$("#site003").val();
+        var site=site01+site02+site03;
+	 
+	 var street=$("[name=street1]").val()
+
+	  
+	  var obj={
+		 supplierid:supplierid,
+		 suppliername:suppliername,
+		 companyname:companyname,
+		 linkman:linkman,
+		 mobilephone:mobilephone,
+		 phone:phone,
+		 mailbox:mailbox,
+		 site:site,
+		 street,street
+      }		 
+	  $.ajax({
+				   url : "/updatesupplier",
+					data :obj,
+					"success":function(res){
+					}
+			   })
+			   location.reload()
+	 
+}
+
+
+function aoop(){
+	 var st=$("[name=cnm01]").val();
+     var st1=$("[name=cnm02]").val();
+     var site=st+st1;
+      var suppliername=$("[name=cnm03]").val()
+	var obj={ 
+		 site:site,
+		 suppliername:suppliername
+	 }
+	 	  $.ajax({
+			url : "/selectsuppliername",
+			data :obj,
+			"success":function(res){
+				$("#dasb").html("");
+				$.each(res,function(i,obj){
+					$("#dasb").append("<tr><td>"+obj.supplierid+"</td><td>"+obj.suppliername+"</td><td>"+obj.companyname+"</td><td>"+obj.linkman+"</td><td>-</td><td>"+obj.phone+"</td><td>"+obj.mailbox+"</td><td>"+obj.site+""+obj.street+"</td><td><a href='#' data-toggle='modal' data-target='#myModa' onclick='update("+obj.supplierid+")'>修改</a><a href='#' style='padding-left: 10px;' onclick='deletesupplier("+obj.supplierid+")'>删除</a></td></tr>");
+				})
+				
+			}
+		}); 
+}
 
 </script>
 	</body>

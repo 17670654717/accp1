@@ -350,4 +350,11 @@
       Goodsmessage = #{goodsmessage,jdbcType=VARCHAR}
     where Goodsid = #{goodsid,jdbcType=INTEGER}
   </update>
+  <select id="selectgoood"  resultType="com.aptech.domain.Goods">
+  select * from goods
+  </select>
+  
+  <select id="selectgoodsid"  resultType="com.aptech.domain.ljhgoods">
+  select * from goods where Goodsid=#{goodsid}
+  </select>
 </mapper>

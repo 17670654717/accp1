@@ -277,4 +277,22 @@
     <select id="selectsupplier" resultType="com.aptech.domain.Supplier">
   select * from supplier
   </select>
+  
+  <insert id="insertsupplier" parameterType="com.aptech.domain.Supplier">
+  INSERT INTO `supplier`(`suppliername`,`companyname`,`linkman`,`mobilephone`,`phone`,`mailbox`,`site`,`street`)VALUES(#{suppliername},#{companyname},#{linkman},#{mobilephone},#{phone},#{mailbox},#{site},#{street})
+  </insert>
+  <delete id="deletesupplier">
+  delete from supplier where Supplierid=#{supplierid}
+  </delete>
+  
+  
+      <select id="selectsupplierid" resultType="com.aptech.domain.Supplier">
+  select * from supplier where `Supplierid`=#{supplierid}
+  </select>
+  
+    <select id="selectsuppliername" resultType="com.aptech.domain.Supplier">
+    SELECT * FROM `supplier`
+    WHERE `Suppliername` LIKE '%${suppliername}%' AND site LIKE '%${site}%'
+  </select>
+  
 </mapper>
