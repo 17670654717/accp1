@@ -110,12 +110,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.aptech.domain.Goods" >
-    insert into goods (Goodsid, Goodsname, barcode, 
+    insert into goods ( Goodsname, barcode, 
       specification, inventory, GoodsTypeid, 
       sales_price, cost_price, online_store, 
       picture, brand, Goodscolorid, 
       Goodssizeid, Goodsmessage)
-    values (#{goodsid,jdbcType=INTEGER}, #{goodsname,jdbcType=VARCHAR}, #{barcode,jdbcType=VARCHAR}, 
+    values ( #{goodsname,jdbcType=VARCHAR}, #{barcode,jdbcType=VARCHAR}, 
       #{specification,jdbcType=VARCHAR}, #{inventory,jdbcType=INTEGER}, #{goodstypeid,jdbcType=INTEGER}, 
       #{salesPrice,jdbcType=REAL}, #{costPrice,jdbcType=REAL}, #{onlineStore,jdbcType=VARCHAR}, 
       #{picture,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR}, #{goodscolorid,jdbcType=INTEGER}, 

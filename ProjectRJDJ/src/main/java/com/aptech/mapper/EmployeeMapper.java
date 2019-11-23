@@ -15,6 +15,8 @@ public interface EmployeeMapper {
     int insert(Employee record);
 
     int insertSelective(Employee record);
+    
+    List<Employee> selectByConditions(@Param("shopId") Integer shopId, @Param("positionId") Integer positionId, @Param("employeeName") String employeeName);
 
     List<Employee> selectByExample(EmployeeExample example);
 

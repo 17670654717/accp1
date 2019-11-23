@@ -38,4 +38,5 @@ public interface GoodstypeMapper {
     
     
     int updategoodstype(Goodstype type);
+    
 }
