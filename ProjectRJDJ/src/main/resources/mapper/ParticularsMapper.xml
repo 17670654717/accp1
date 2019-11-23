@@ -264,4 +264,10 @@
   delete from particulars where purchaseid=#{purchaseid}
   </delete>
   
+  <select id="selectparticularsid" resultType="com.aptech.domain.Particulars">
+  select * from particulars
+  where purchaseid=#{purchaseid}
+  </select>
+  
+  
 </mapper>

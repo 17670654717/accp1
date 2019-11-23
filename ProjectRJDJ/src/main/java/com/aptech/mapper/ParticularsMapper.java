@@ -29,4 +29,6 @@ public interface ParticularsMapper {
     int updateByPrimaryKey(Particulars record);
     
     int delete002(Particulars pa);
+    
+    List<Particulars>selectparticularsid(Particulars purchaseid);
 }

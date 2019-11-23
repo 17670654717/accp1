@@ -36,5 +36,5 @@ public interface PurchasenoteMapper {
     int delete001(Purchasenote pu);
     
     List<Purchasenote> selectpurchasenoteok(String deliverytime2,String deliverytime1,String supplier2,String purchaseid);
-    
+     List<Purchasenote> selectpurchasenoteid(Purchasenote purchaseid);
 }

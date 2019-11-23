@@ -149,4 +149,16 @@ public class GoodsService {
 	public int delete002(Particulars pu) {
 		return mapper04.delete002(pu);
 	}
+	
+	
+	public List<Purchasenote> selectpurchasenoteid(Purchasenote purchaseid){
+		return mapper03.selectpurchasenoteid(purchaseid);
+	}
+	
+	
+	public List<Particulars> selectparticularsid(Particulars purchaseid){
+		return mapper04.selectparticularsid(purchaseid);
+	}
+	
+	
 }

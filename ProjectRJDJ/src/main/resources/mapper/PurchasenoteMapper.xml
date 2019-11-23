@@ -231,4 +231,10 @@
   SELECT * FROM `purchasenote` 
 WHERE    #{deliverytime2} >= `deliverytime` AND `deliverytime` >= #{deliverytime1} AND `supplier2` LIKE '%${supplier2}%' AND `purchaseid` LIKE '%${purchaseid}%'
   </select>
+  
+  
+  <select id="selectpurchasenoteid" resultType="com.aptech.domain.Purchasenote">
+    SELECT * FROM `purchasenote` 
+WHERE purchaseid=#{purchaseid}
+  </select>
 </mapper>

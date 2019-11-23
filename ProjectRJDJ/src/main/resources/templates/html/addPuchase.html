@@ -23,6 +23,7 @@
         	时间：2019-11-12
         	描述：新建采购单
         -->
+       
 		<div class="col-md-10" style="width: 100%;">
 			<div class="row">
 				<div id="tab_yggl" class="tal_none2">
@@ -40,6 +41,8 @@
 							<div style="padding-bottom: 10px;width: 100%;overflow:hidden;margin-left: 4px;">
 								<div style="float: left;width: 25%;">
 									<label>单 号</label>
+									 
+									
 									<input type="text" name="odd" class="form-control" style="display: inline-block; width: 78%;">
 								</div>
 								<div style="float: left;width: 25%;">
@@ -48,14 +51,14 @@
 								</div>
 								<div style="float: left;width: 25%;">
 									<label>供应商</label>
-									<select id="supplierSearch" name="supplierSearch" class="form-control" style="display: inline-block;width: 78%;">
+									<select id="supplierSearch" name="supp" class="form-control" style="display: inline-block;width: 78%;">
 									  
 									</select>
 								</div>
 								<div style="float: left;width: 25%;">
 									<label>制表人</label>
-									<select class="form-control" style="display: inline-block;width: 78%;">
-									  <option>18610249685</option>
+									<select class="form-control" style="display: inline-block;width: 78%;" name="zbiaor">
+									  
 									</select>
 								</div>
 							</div>	
@@ -101,7 +104,7 @@
 						</div>
 						<div style="text-align: right;">
 							<button type="reset" class="btn btn-default" style="width: 8%;">清空</button>
-							<button type="button" class="btn btn-success" style="width: 8%;"id="submit">提交</button>
+							<button type="button" class="btn btn-success" style="width: 8%;"id="submit" onclick="xzhxg()">提交</button>
 						</div>
 					</div>
 				</div>
@@ -152,24 +155,189 @@
 		</div>
 		<script type="text/javascript" src="/js/jquery-1.8.2.min.js"></script>
 		<script type="text/javascript">
+		
+			var id="[[${id}]]";
+			if(id>0){
+				
+				$(function(){
+					//上面部分
+					var obj={
+							purchaseid:id
+	                   }			  
+	                    $.ajax({
+		                  	url : "/selectpurchasenoteid",
+		                     	data :obj,
+			               	"success":function(res){
+			               		console.log(res)
+			               		$.each(res,function(i,obj){
+			               		$("[name=odd]").val(obj.purchaseid)
+			               		$("[name=deliverydate]").val(obj.deliverytime)
+			               		$("[name=supp]").append("<option>"+obj.supplier2+"</option>")
+			               		$("[name=zbiaor]").val(obj.lister)
+			               		$("[name=remark]").val(obj.remark)
+			               		$("[name=zbiaor]").append("<option>"+obj.lister+"</option>")
+			               		})
+			               	}
+				
+	                    }) 
+	                    
+	                    
+	                    
+	                    
+				 $.ajax({
+		                  	url : "/selectparticularsid",
+		                     	data :obj,
+			               	"success":function(res){
+			               		console.log(res)
+			               		$.each(res,function(i,obj){
+			               			
+			               			var tr = $("<tr>"+
+											"<td>"+(i+1)+"</td>"+
+											"<td>"+obj.particularsbarcode+"</td>"+
+											"<td>"+obj.particularsname+"</td>"+
+											"<td>"+
+												"<span style='display: block;'>"+obj.particularsspecification+"</span>"+
+												"<span style='display: block;'></span>"+
+											"</td>"+
+											"<td name='sell'>"+obj.particularscostprice+"</td>"+
+											"<td><input type='text' onchange='changeNum(this)' name='num' value="+obj.particularsquantity+" class='form-control' style='width:80%;padding-left:35px'></td>"+
+											"<td>"+
+												"<span name='sum'>"+obj.particularscostprice+"</span>"+
+												"<span onclick='removeTr(this)' style='padding-left:15px;color:red' >删除</span></td>"+
+										"</tr>");
+			       			$("#tbody2").append(tr);
+			               			
+			               		})
+			               		setTotal(); 
+			               	}
+				 })
+			               	
+				
+				 $.ajax({
+						url : "/selectgoood",
+						"success":function(res){
+							$("#tbody").html("")
+							$.each(res,function(i,obj){
+								$("#tbody").append("<tr>"+
+			                               "<td><input type='checkbox' name='ck' /></td>"+
+											"<td>"+
+												"<span name='articleno' style='display: block;'>"+obj.barcode+"</span>"+
+												"<span name='shapecode' style='display: block;'></span>"+
+											"</td>"+
+											"<td name='cname'>"+obj.goodsname+"</td>"+
+											"<td>"+ 
+												"<span name='colorname' style='display: block;'>"+obj.specification+"</span>"+
+												"<span name='sizename' style='display: block;'></span>"+
+											"</td>"+
+											"<td name='sell'>"+obj.sales_price+"</td>"+
+											"<td name='inventory'>"+obj.inventory+"</td>"+
+										"</tr>");
+							})
+							setTotal(); 
+							
+						}
+					}); 
+				
+				
+					 $("[name=ckAll]").live("click",function(){
+				       		$("[name=ck]").prop("checked",$(this).prop("checked"))
+				        }); 
+					
+					
+				        //反选
+					  $("[name=ck]").live("click",function(){
+				       		var ck = $("[name=ck]").length;
+				       		if(ck == $("[name=ck]:checked").length){
+				       			$("[name=ckAll]").prop("checked",true);
+				       		}else{
+				       			$("[name=ckAll]").prop("checked",false);
+				       		}
+				        });
+				 
+				 
+				 /////
+				 
+				 
+				 
+				 
+				 
+				      	$("#ok").live("click",function(){
+
+				       		var check = $("input[name='ck']:checked");	//选中的复选框	
+				       		var selectedData = [];
+				       		check.each(function(){	
+				       			var row= $(this).parent("td").parent("tr");	
+				       			
+				       			var articleno = row.find("[name='articleno']").html();
+				       			var cname = row.find("[name='cname']").html();
+				       			var colorname = row.find("[name='colorname']").html();
+				       			var sell = row.find("[name='sell']").html();
+				       			var inventory = row.find("[name='inventory']").html();
+				       			
+				       			selectedData.push({articleno:articleno,cname:cname,colorname:colorname,
+				       				sell:sell,inventory:inventory})
+				       		}); 
+				       		console.info(selectedData)
+							
+				       		$("#tbody2").html("");
+				       		
+				       		$.each(selectedData,function(i,obj){
+				       			var tr = $("<tr>"+
+												"<td>"+(i+1)+"</td>"+
+												"<td>"+obj.articleno+"</td>"+
+												"<td>"+obj.cname+"</td>"+
+												"<td>"+
+													"<span style='display: block;'>"+obj.colorname+"</span>"+
+													"<span style='display: block;'></span>"+
+												"</td>"+
+												"<td name='sell'>"+obj.sell+"</td>"+
+												"<td><input type='text' onchange='changeNum(this)' name='num' value='1' class='form-control' style='width:80%;padding-left:35px'></td>"+
+												"<td>"+
+													"<span name='sum'>"+obj.sell+"</span>"+
+													"<span onclick='removeTr(this)' style='padding-left:15px;color:red' >删除</span></td>"+
+											"</tr>");
+				       			$("#tbody2").append(tr);
+				       		});		
+				       		 setTotal(); 
+				       	});
+				 
+				 
+				 
+				 
+				 
+				 ///修改
+				
+				 
+				 
+				 
+				 
+				
+				})
+				 function xzhxg(){
+					 alert("修改")
+				 }
+				
+				
+				
+			}else{
+				
+				
 			$(function(){
 				
 				
        /* init() ; */
 				
 				//提交
-				$("#submit").click(function(){
-					alert(1);
-					var obj = {
-						odd : $("[name='odd']").val(),
-						deliverydate : $("[name='deliverydate']").val(),
-						supplierSearch : $("[name='supplierSearch']").val(),
-						remark : $("[name='remark']").val()
-					}
-					console.info(obj)
-				});
+lo();
+
+			        
+			})
+			}	
+			
+			
+			function lo(){
 				
-				
+				//时间赋值
 				var now=new Date();
 				var year=now.getFullYear();
 				var month=now.getMonth()+1;
@@ -187,7 +355,7 @@
        
 				
 				
-				
+				//供应商下拉
 				$.ajax({
 					url : "/selectsupplier",
 					"success":function(res){
@@ -197,7 +365,7 @@
 						
 					}
 				}); 
-				
+				//模拟框数据
 				$.ajax({
 					url : "/selectgoood",
 					"success":function(res){
@@ -210,7 +378,7 @@
 											"<span name='shapecode' style='display: block;'></span>"+
 										"</td>"+
 										"<td name='cname'>"+obj.goodsname+"</td>"+
-										"<td>"+
+										"<td>"+ 
 											"<span name='colorname' style='display: block;'>"+obj.specification+"</span>"+
 											"<span name='sizename' style='display: block;'></span>"+
 										"</td>"+
@@ -222,13 +390,13 @@
 					}
 				}); 
 				
-				 
+				 //全选
 				 $("[name=ckAll]").live("click",function(){
 			       		$("[name=ck]").prop("checked",$(this).prop("checked"))
 			        }); 
 				
 				
-			        
+			        //反选
 				  $("[name=ck]").live("click",function(){
 			       		var ck = $("[name=ck]").length;
 			       		if(ck == $("[name=ck]:checked").length){
@@ -239,7 +407,7 @@
 			        });
 				  
 				  
-				  
+				  //表格数据
 			       	$("#ok").live("click",function(){
 
 			       		var check = $("input[name='ck']:checked");	//选中的复选框	
@@ -280,26 +448,25 @@
 			       		 setTotal(); 
 			       	});
 			       	
-			       
-			        
-			})
 				
+			}
 			
 			
+			//删除
 			function removeTr(dq){
 				$(dq).parent("td").parent("tr").remove();
 				setTotal();
 			}
 			
 			
-			
+			//数量
 			function changeNum(dq){
 				$(dq).parent("td").parent("tr").find("[name='sum']").html(
 						parseInt($(dq).val())*parseFloat($(dq).parent("td").parent("tr").find("[name='sell']").text())); 
 				setTotal();
 	       	}
 			
-			
+			//总金额
 			function setTotal(){ 
 				//商品件数
 	       		$("#num").html($("#tbody2").find("tr").length);
@@ -314,7 +481,9 @@
 			
 		
 			
-			
+			function xzhxg(){
+				 alert("新增")
+			}  
 			
 			
 		</script>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,7 +42,24 @@ public class GoodsController {
 	public String splebh() {
 		return "purchase";
 	}
+	
+	
+	@RequestMapping("/tym")
+	public String tym(Model model,String id) {
+		/*
+		 * System.out.println(id); m.addAttribute("list",id);
+		 */
+		model.addAttribute("id", id);
+		return "addPuchase";
+	}
 
+	
+	
+	@RequestMapping("/tym2")
+	public String tym() {
+		return "addPuchase";
+	}
+	
 		
 		//增加采购单
 		@RequestMapping("/addPuchase")
@@ -199,6 +217,22 @@ public class GoodsController {
 	@ResponseBody
 	public List<Purchasenote> selectpurchasenoteok(String deliverytime2,String deliverytime1,String supplier2,String purchaseid){
 		List<Purchasenote>  list= sb.selectpurchasenoteok(deliverytime2,deliverytime1,supplier2,purchaseid);
+		return list;
+	}
+	
+	
+	@RequestMapping("/selectpurchasenoteid")
+	@ResponseBody
+	public List<Purchasenote> selectpurchasenoteid(Purchasenote purchaseid){
+		List<Purchasenote>  list= sb.selectpurchasenoteid(purchaseid);
+		return list;
+	}
+	
+	
+	@RequestMapping("/selectparticularsid")
+	@ResponseBody
+	public List<Particulars> selectparticularsid(Particulars purchaseid){
+		List<Particulars>  list= sb.selectparticularsid(purchaseid);
 		return list;
 	}
 	

@@ -39,7 +39,7 @@
 								
 								<input type="text" class="form-control" id="inputEmail3" placeholder="查找" style="width: 24.50%; display: inline-block;" name="dhid">
 								<a class="glyphicon glyphicon-search" style="margin-left: -28px;cursor: pointer;" onclick="yy()"></a>
-								<button type="button" class="btn btn-success" style="margin-left: 10px; margin-top: -4px;" onclick="goToPage2('addPuchase.html')">新建采购单</button>
+								<button type="button" class="btn btn-success" style="margin-left: 10px; margin-top: -4px;" onclick="np()">新建采购单</button>
 							</form>
 						</div>
 					</div>
@@ -81,16 +81,16 @@
 		</div>
 	<script type="text/javascript">
 			//带参数函数--商品管理 
-		/* 	function goToPage2(param){ 
-				window.parent.goToPage2(param);
-			} */
+		 	function np(){ 
+		 		location.href="/tym2"
+			} 
 			
 			$(function(){
 				   $.ajax({
 						url : "/selectpurchasenote",
 						"success":function(res){
 							$.each(res,function(i,obj){
-								$("#iuu").append("<tr><td>"+(i+1)+"</td><td>阿里</td><td>"+obj.purchaseid+"</td><td>"+obj.deliverytime+"</td><td>"+obj.supplier2+"</td><td>"+obj.totalquantity+"</td><td>"+obj.aggregateamount+"</td><td>"+obj.remark+"</td><td><a href='#' onclick='u()'>修改</a><a href='#' style='padding-left: 10px;' onclick='deletejb("+obj.purchaseid+")'>删除</a></td></tr>");
+								$("#iuu").append("<tr><td>"+(i+1)+"</td><td>阿里</td><td>"+obj.purchaseid+"</td><td>"+obj.deliverytime+"</td><td>"+obj.supplier2+"</td><td>"+obj.totalquantity+"</td><td>"+obj.aggregateamount+"</td><td>"+obj.remark+"</td><td><a href='#' onclick='u("+obj.purchaseid+")'>修改</a><a href='#' style='padding-left: 10px;' onclick='deletejb("+obj.purchaseid+")'>删除</a></td></tr>");
 							})
 							
 						}
@@ -122,23 +122,17 @@
 							//type : "post",
 							data :kk,
 							"success":function(res){
-								
-								
-								 var kkk={
-										  purchaseid:id
-									   }
-								 alert(JSON.stringify(kkk))
-									   $.ajax({
+							}
+					   })
+					   
+					    $.ajax({
 										   url : "/detele002",
 											//type : "post",
-											data :kkk,
+											data :kk,
 											"success":function(res){
 											}
 									   })
-								
-								
-							}
-					   })
+					   
 					   location.reload()
 			}
 			
@@ -161,12 +155,17 @@
 					success:function(res){
 						$("#iuu").html("");
 						$.each(res,function(i,obj){
-							$("#iuu").append("<tr><td>"+(i+1)+"</td><td>阿里</td><td>"+obj.purchaseid+"</td><td>"+obj.deliverytime+"</td><td>"+obj.supplier2+"</td><td>"+obj.totalquantity+"</td><td>"+obj.aggregateamount+"</td><td>"+obj.remark+"</td><td><a href='#' onclick='u()'>修改</a><a href='#' style='padding-left: 10px;' onclick='deletejb("+obj.purchaseid+")'>删除</a></td></tr>");
+							$("#iuu").append("<tr><td>"+(i+1)+"</td><td>阿里</td><td>"+obj.purchaseid+"</td><td>"+obj.deliverytime+"</td><td>"+obj.supplier2+"</td><td>"+obj.totalquantity+"</td><td>"+obj.aggregateamount+"</td><td>"+obj.remark+"</td><td><a href='#' onclick='u("+obj.purchaseid+")'>修改</a><a href='#' style='padding-left: 10px;' onclick='deletejb("+obj.purchaseid+")'>删除</a></td></tr>");
 						})
 						
 					}
 				}); 
 			}
+			
+			
+			  function u(id){
+				 location.href="/tym?id="+id;
+			  }
 		</script>
 	</body>
 </html>
