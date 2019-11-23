@@ -3,7 +3,7 @@ package com.aptech.domain;
 public class Particulars {
     private Integer particularsid;
 
-    private Integer purchaseid;
+    private String purchaseid;
 
     private String particularsbarcode;
 
@@ -17,67 +17,69 @@ public class Particulars {
 
     private Float particularsamount;
 
-    public Integer getParticularsid() {
-        return particularsid;
-    }
+	public Integer getParticularsid() {
+		return particularsid;
+	}
 
-    public void setParticularsid(Integer particularsid) {
-        this.particularsid = particularsid;
-    }
+	public void setParticularsid(Integer particularsid) {
+		this.particularsid = particularsid;
+	}
 
-    public Integer getPurchaseid() {
-        return purchaseid;
-    }
+	public String getPurchaseid() {
+		return purchaseid;
+	}
 
-    public void setPurchaseid(Integer purchaseid) {
-        this.purchaseid = purchaseid;
-    }
+	public void setPurchaseid(String purchaseid) {
+		this.purchaseid = purchaseid;
+	}
 
-    public String getParticularsbarcode() {
-        return particularsbarcode;
-    }
+	public String getParticularsbarcode() {
+		return particularsbarcode;
+	}
 
-    public void setParticularsbarcode(String particularsbarcode) {
-        this.particularsbarcode = particularsbarcode;
-    }
+	public void setParticularsbarcode(String particularsbarcode) {
+		this.particularsbarcode = particularsbarcode;
+	}
 
-    public String getParticularsname() {
-        return particularsname;
-    }
+	public String getParticularsname() {
+		return particularsname;
+	}
 
-    public void setParticularsname(String particularsname) {
-        this.particularsname = particularsname;
-    }
+	public void setParticularsname(String particularsname) {
+		this.particularsname = particularsname;
+	}
 
-    public String getParticularsspecification() {
-        return particularsspecification;
-    }
+	public String getParticularsspecification() {
+		return particularsspecification;
+	}
 
-    public void setParticularsspecification(String particularsspecification) {
-        this.particularsspecification = particularsspecification;
-    }
+	public void setParticularsspecification(String particularsspecification) {
+		this.particularsspecification = particularsspecification;
+	}
 
-    public Float getParticularscostprice() {
-        return particularscostprice;
-    }
+	public Float getParticularscostprice() {
+		return particularscostprice;
+	}
 
-    public void setParticularscostprice(Float particularscostprice) {
-        this.particularscostprice = particularscostprice;
-    }
+	public void setParticularscostprice(Float particularscostprice) {
+		this.particularscostprice = particularscostprice;
+	}
 
-    public Integer getParticularsquantity() {
-        return particularsquantity;
-    }
+	public Integer getParticularsquantity() {
+		return particularsquantity;
+	}
 
-    public void setParticularsquantity(Integer particularsquantity) {
-        this.particularsquantity = particularsquantity;
-    }
+	public void setParticularsquantity(Integer particularsquantity) {
+		this.particularsquantity = particularsquantity;
+	}
 
-    public Float getParticularsamount() {
-        return particularsamount;
-    }
+	public Float getParticularsamount() {
+		return particularsamount;
+	}
 
-    public void setParticularsamount(Float particularsamount) {
-        this.particularsamount = particularsamount;
-    }
+	public void setParticularsamount(Float particularsamount) {
+		this.particularsamount = particularsamount;
+	}
+
+   
 }

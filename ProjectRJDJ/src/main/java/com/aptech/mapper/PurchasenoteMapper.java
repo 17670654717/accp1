@@ -2,6 +2,8 @@ package com.aptech.mapper;
 
 import com.aptech.domain.Purchasenote;
 import com.aptech.domain.PurchasenoteExample;
+import com.aptech.domain.Supplier;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,4 +29,12 @@ public interface PurchasenoteMapper {
     int updateByPrimaryKeySelective(Purchasenote record);
 
     int updateByPrimaryKey(Purchasenote record);
+    int selectcon(String purchaseid);
+
+    List<Purchasenote> selectpurchasenote();
+    
+    int delete001(Purchasenote pu);
+    
+    List<Purchasenote> selectpurchasenoteok(String deliverytime2,String deliverytime1,String supplier2,String purchaseid);
+    
 }

@@ -258,4 +258,10 @@
       particularsamount = #{particularsamount,jdbcType=REAL}
     where particularsid = #{particularsid,jdbcType=INTEGER}
   </update>
+  
+  
+      <delete id="delete002">
+  delete from particulars where purchaseid=#{purchaseid}
+  </delete>
+  
 </mapper>

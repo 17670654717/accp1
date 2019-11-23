@@ -30,15 +30,15 @@
 						<div style="padding-left: 0;float: left;">采购单</div>
 						<div style="float: right;text-align: right;">
 							<form action="" method="post">
-								<input type="date" class="form-control" id="inputEmail3" style="width: 18.55%; display: inline-block;">					
+								<input type="date" class="form-control" id="inputEmail3" style="width: 18.55%; display: inline-block;" name="data01">					
 								至
-								<input type="date" class="form-control" id="inputEmail3" style="width: 18.55%; display: inline-block;">
-								<select class="form-control" style="width: 20.66%; display: inline-block;">
-								  <option>全部店铺</option>
+								<input type="date" class="form-control" id="inputEmail3" style="width: 18.55%; display: inline-block;"name="data02">
+								<select class="form-control" style="width: 20.66%; display: inline-block;" name="gys">
+								  <option value="">全部供应商</option>
 								</select>
 								
-								<input type="text" class="form-control" id="inputEmail3" placeholder="查找" style="width: 24.50%; display: inline-block;">
-								<a class="glyphicon glyphicon-search" style="margin-left: -28px;cursor: pointer;"></a>
+								<input type="text" class="form-control" id="inputEmail3" placeholder="查找" style="width: 24.50%; display: inline-block;" name="dhid">
+								<a class="glyphicon glyphicon-search" style="margin-left: -28px;cursor: pointer;" onclick="yy()"></a>
 								<button type="button" class="btn btn-success" style="margin-left: 10px; margin-top: -4px;" onclick="goToPage2('addPuchase.html')">新建采购单</button>
 							</form>
 						</div>
@@ -58,8 +58,8 @@
 									<td width="8%">操作</td>
 								</tr>
 							</thead>
-							<tbody align="center">
-								<tr>
+							<tbody align="center" id="iuu">
+								<!-- <tr>
 									<td>1</td>
 									<td>阿里</td>
 									<td>阿里巴巴</td>
@@ -72,7 +72,7 @@
 										<a href="#">修改</a>
 										<a href="#" style="padding-left: 10px;">删除</a>
 									</td>
-								</tr>
+								</tr> -->
 							</tbody>
 						</table>
 					</div>
@@ -81,8 +81,91 @@
 		</div>
 	<script type="text/javascript">
 			//带参数函数--商品管理 
-			function goToPage2(param){ 
+		/* 	function goToPage2(param){ 
 				window.parent.goToPage2(param);
+			} */
+			
+			$(function(){
+				   $.ajax({
+						url : "/selectpurchasenote",
+						"success":function(res){
+							$.each(res,function(i,obj){
+								$("#iuu").append("<tr><td>"+(i+1)+"</td><td>阿里</td><td>"+obj.purchaseid+"</td><td>"+obj.deliverytime+"</td><td>"+obj.supplier2+"</td><td>"+obj.totalquantity+"</td><td>"+obj.aggregateamount+"</td><td>"+obj.remark+"</td><td><a href='#' onclick='u()'>修改</a><a href='#' style='padding-left: 10px;' onclick='deletejb("+obj.purchaseid+")'>删除</a></td></tr>");
+							})
+							
+						}
+					}); 
+				   
+				   
+				   
+				   $.ajax({
+						url : "/selectsupplier",
+						"success":function(res){
+							$.each(res,function(i,obj){
+								$("[name=gys]").append("<option value="+obj.suppliername+">"+obj.suppliername+"</option>");
+							})
+							
+						}
+					}); 
+				
+			})
+			
+			
+			function deletejb(id){
+				
+				  var kk={
+						  purchaseid:id
+					   }
+					   
+					   $.ajax({
+						   url : "/detele001",
+							//type : "post",
+							data :kk,
+							"success":function(res){
+								
+								
+								 var kkk={
+										  purchaseid:id
+									   }
+								 alert(JSON.stringify(kkk))
+									   $.ajax({
+										   url : "/detele002",
+											//type : "post",
+											data :kkk,
+											"success":function(res){
+											}
+									   })
+								
+								
+							}
+					   })
+					   location.reload()
+			}
+			
+			
+			function yy(){
+				var deliverytime1=$("[name=data01]").val()
+				var deliverytime2=$("[name=data02]").val()
+				var supplier2=$("[name=gys]").val()
+				var purchaseid=$("[name=dhid]").val()
+
+				
+				
+				$.ajax({
+					url : "/selectpurchasenoteok",
+					data :{deliverytime2:deliverytime2,
+						deliverytime1:deliverytime1,
+						
+						supplier2:supplier2,
+						purchaseid:purchaseid},
+					success:function(res){
+						$("#iuu").html("");
+						$.each(res,function(i,obj){
+							$("#iuu").append("<tr><td>"+(i+1)+"</td><td>阿里</td><td>"+obj.purchaseid+"</td><td>"+obj.deliverytime+"</td><td>"+obj.supplier2+"</td><td>"+obj.totalquantity+"</td><td>"+obj.aggregateamount+"</td><td>"+obj.remark+"</td><td><a href='#' onclick='u()'>修改</a><a href='#' style='padding-left: 10px;' onclick='deletejb("+obj.purchaseid+")'>删除</a></td></tr>");
+						})
+						
+					}
+				}); 
 			}
 		</script>
 	</body>

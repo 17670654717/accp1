@@ -8,11 +8,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.aptech.domain.Goods;
 import com.aptech.domain.Goodstype;
+import com.aptech.domain.Particulars;
+import com.aptech.domain.Purchasenote;
 import com.aptech.domain.ShopList;
 import com.aptech.domain.Supplier;
 import com.aptech.domain.ljhgoods;
 import com.aptech.mapper.GoodsMapper;
 import com.aptech.mapper.GoodstypeMapper;
+import com.aptech.mapper.ParticularsMapper;
+import com.aptech.mapper.PurchasenoteMapper;
 import com.aptech.mapper.ShopListMapper;
 import com.aptech.mapper.SupplierMapper;
 @Service
@@ -26,6 +30,14 @@ public class GoodsService {
 	
 	@Autowired
 	private GoodsMapper mapper02;
+	
+	
+	@Autowired
+	private PurchasenoteMapper mapper03;
+	
+	
+	@Autowired
+	private ParticularsMapper mapper04;
 //商品类别
 	public List<Goodstype> selectgoodstype() {
 		List<Goodstype> list = mapper.selectgoodstype();
@@ -99,5 +111,42 @@ public class GoodsService {
 		
 		
 		return  mapper02.selectgoodsid(su.getGoodsid());
+	}
+	
+	
+	
+	public String selectco(String purchaseid){
+		int conunt=mapper03.selectcon(purchaseid+"%")+1;
+		String jb=purchaseid;
+		if (conunt<=9) {
+			jb+="00"+conunt;
+		} else {
+			jb+="0"+conunt;
+		}
+		return jb;
+	}
+	
+	
+	public List<Purchasenote> selectpurchasenote(){
+		return mapper03.selectpurchasenote();
+	}
+	
+	
+	public int delete001(Purchasenote pu) {
+		System.out.println("666");
+		return mapper03.delete001(pu);
+	}
+	
+	
+	
+	public List<Purchasenote> selectpurchasenoteok(String deliverytime2,String deliverytime1,String supplier2,String purchaseid){
+		return mapper03.selectpurchasenoteok(deliverytime2,deliverytime1,supplier2,purchaseid);
+	}
+	
+	
+	
+	
+	public int delete002(Particulars pu) {
+		return mapper04.delete002(pu);
 	}
 }

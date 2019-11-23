@@ -208,4 +208,27 @@
       remark = #{remark,jdbcType=VARCHAR}
     where purchaseid = #{purchaseid,jdbcType=INTEGER}
   </update>
+  
+  
+    <select id="selectcon" parameterType="string" resultType="int">
+  select count(*) from purchasenote where purchaseid like #{0}
+  </select>
+  
+  
+  
+  
+    <select id="selectpurchasenote" resultType="com.aptech.domain.Purchasenote">
+  select * from purchasenote 
+  </select>
+  
+  
+    <delete id="delete001">
+  delete from purchasenote where purchaseid=#{purchaseid}
+  </delete>
+  
+  
+  <select id="selectpurchasenoteok" resultType="com.aptech.domain.Purchasenote">
+  SELECT * FROM `purchasenote` 
+WHERE    #{deliverytime2} >= `deliverytime` AND `deliverytime` >= #{deliverytime1} AND `supplier2` LIKE '%${supplier2}%' AND `purchaseid` LIKE '%${purchaseid}%'
+  </select>
 </mapper>

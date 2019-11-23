@@ -27,4 +27,6 @@ public interface ParticularsMapper {
     int updateByPrimaryKeySelective(Particulars record);
 
     int updateByPrimaryKey(Particulars record);
+    
+    int delete002(Particulars pa);
 }

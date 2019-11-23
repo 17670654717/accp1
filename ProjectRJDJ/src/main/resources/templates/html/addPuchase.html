@@ -49,7 +49,7 @@
 								<div style="float: left;width: 25%;">
 									<label>供应商</label>
 									<select id="supplierSearch" name="supplierSearch" class="form-control" style="display: inline-block;width: 78%;">
-									  <option>请选择供应商</option>
+									  
 									</select>
 								</div>
 								<div style="float: left;width: 25%;">
@@ -170,6 +170,21 @@
 				});
 				
 				
+				var now=new Date();
+				var year=now.getFullYear();
+				var month=now.getMonth()+1;
+				var date=now.getDate();
+				$("[name=deliverydate]").val(year+"-"+month+"-"+date);
+								
+						$.ajax({
+						url:"/selectcon/"+year+month+date,
+						success:function(res){
+							
+							$("[name=odd]").val(JSON.parse(res));
+						}
+						}) 
+       
+       
 				
 				
 				
@@ -177,7 +192,7 @@
 					url : "/selectsupplier",
 					"success":function(res){
 						$.each(res,function(i,obj){
-							$("#appjb").append("<option value="+obj.supplierid+">"+obj.suppliername+"</option>");
+							$("#supplierSearch").append("<option value="+obj.supplierid+">"+obj.suppliername+"</option>");
 						})
 						
 					}

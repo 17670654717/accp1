@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.aptech.domain.Goods;
 import com.aptech.domain.Goodstype;
+import com.aptech.domain.Particulars;
+import com.aptech.domain.Purchasenote;
 import com.aptech.domain.Supplier;
 import com.aptech.domain.ljhgoods;
 import com.aptech.service.GoodsService;
@@ -38,13 +41,7 @@ public class GoodsController {
 	public String splebh() {
 		return "purchase";
 	}
-	
-	
-	//跳主页面
-		@RequestMapping("/index")
-		public String index() {
-			return "index";
-		}
+
 		
 		//增加采购单
 		@RequestMapping("/addPuchase")
@@ -162,4 +159,47 @@ public class GoodsController {
 		ljhgoods  list= sb.selectgoodsid(goodsid);
 		return list;
 	}
+	
+	
+	@RequestMapping("/selectcon/{purchaseid}")
+	@ResponseBody
+	public String selectcon(@PathVariable String purchaseid){
+		String bi=sb.selectco(purchaseid);
+		return bi;
+	}
+	
+	@RequestMapping("/selectpurchasenote")
+	@ResponseBody
+	public List<Purchasenote> selectpurchasenote(){
+		List<Purchasenote>  list= sb.selectpurchasenote();
+		return list;
+	}
+	
+	
+	
+	@RequestMapping("/detele001")
+	@ResponseBody
+	public int detele001(Purchasenote pu){
+		int  list= sb.delete001(pu);
+		return list;
+	}
+	
+	
+	
+	@RequestMapping("/detele002")
+	@ResponseBody
+	public int detele002(Particulars pu){
+		int  list= sb.delete002(pu);
+		return list;
+	}
+	
+	
+	
+	@RequestMapping("/selectpurchasenoteok")
+	@ResponseBody
+	public List<Purchasenote> selectpurchasenoteok(String deliverytime2,String deliverytime1,String supplier2,String purchaseid){
+		List<Purchasenote>  list= sb.selectpurchasenoteok(deliverytime2,deliverytime1,supplier2,purchaseid);
+		return list;
+	}
+	
 }
