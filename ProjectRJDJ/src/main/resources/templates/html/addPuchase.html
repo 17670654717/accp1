@@ -43,7 +43,7 @@
 									<label>单 号</label>
 									 
 									
-									<input type="text" name="odd" class="form-control" style="display: inline-block; width: 78%;">
+									<input type="text" name="odd" class="form-control" style="display: inline-block; width: 78%;" disabled="disabled">
 								</div>
 								<div style="float: left;width: 25%;">
 									<label>交 期</label>
@@ -172,7 +172,7 @@
 			               		$.each(res,function(i,obj){
 			               		$("[name=odd]").val(obj.purchaseid)
 			               		$("[name=deliverydate]").val(obj.deliverytime)
-			               		$("[name=supp]").append("<option>"+obj.supplier2+"</option>")
+			               		$("[name=supp]").append("<option value="+obj.supplierid+">"+obj.supplier2+"</option>")
 			               		$("[name=zbiaor]").val(obj.lister)
 			               		$("[name=remark]").val(obj.remark)
 			               		$("[name=zbiaor]").append("<option>"+obj.lister+"</option>")
@@ -180,10 +180,7 @@
 			               	}
 				
 	                    }) 
-	                    
-	                    
-	                    
-	                    
+	                   	                    
 				 $.ajax({
 		                  	url : "/selectparticularsid",
 		                     	data :obj,
@@ -257,10 +254,6 @@
 				 
 				 /////
 				 
-				 
-				 
-				 
-				 
 				      	$("#ok").live("click",function(){
 
 				       		var check = $("input[name='ck']:checked");	//选中的复选框	
@@ -308,13 +301,90 @@
 				 ///修改
 				
 				 
-				 
-				 
-				 
 				
 				})
 				 function xzhxg(){
-					 alert("修改")
+ 					var id=$("[name=odd]").val();
+					
+					  var kk={
+							  purchaseid:id
+						   }
+						   
+						   $.ajax({
+							   url : "/detele001",
+								//type : "post",
+								data :kk,
+								"success":function(res){
+								
+						   
+						    $.ajax({
+											   url : "/detele002",
+												//type : "post",
+												data :kk,
+												"success":function(res){
+													
+																			
+													var ljhlist=[];
+													$("#tbody2 tr").each(function(a,b){
+														var ljh={};
+														ljh.purchaseid=$("[name=odd]").val();
+														
+														ljh.particularsbarcode=$(this).find("td").eq(1).html()
+														
+														ljh.particularsname=$(this).find("td").eq(2).html()
+														ljh.particularsspecification=$(this).find("td").eq(3).find("span").eq(0).html()
+														ljh.particularscostprice=$(this).find("td").eq(4).html()
+														ljh.particularsquantity=$(this).find("td").eq(5).find("input").eq(0).val()
+														ljh.particularsamount=$(this).find("td").eq(6).find("span").eq(0).html()
+														ljhlist[a]=ljh;
+														
+													})
+													var purchaseid=$("[name=odd]").val();
+													var deliverytime=$("[name=deliverydate]").val();
+													var supplierid=$("[name=supp]").val();
+									                var lister=$("[name=zbiaor]").val();
+													var remark=$("[name=remark]").val();
+													var aggregateamount=$("#moeny").text();
+													var totalquantity=$("#num").text();
+														/* alert($(this).attr("selected")) */
+													
+															var supplier2;
+															$("#supplierSearch option").each(function(){
+																if($(this).prop("selected")==true){
+																	
+																	supplier2=$(this).text();
+																}
+															})
+													
+													var obj = {
+															purchaseid:purchaseid,	
+															deliverytime:deliverytime,
+															supplierid:supplierid,
+															lister:lister,
+															remark:remark,
+															aggregateamount:aggregateamount,
+															totalquantity:totalquantity,
+															supplier2:supplier2,
+															jb:ljhlist
+													}													
+													  $.ajax({
+														url : "[[@{insertpurchasenotekk}]]",
+														contentType : "application/json",
+														data : JSON.stringify(obj),
+														type : "post",
+														"success":function(res){
+															alert("修改成功")
+														}
+														
+													});  
+																									}
+										   }) 
+								}
+						   })
+											
+						   location.reload()
+
+					 
 				 }
 				
 				
@@ -351,9 +421,6 @@ lo();
 							$("[name=odd]").val(JSON.parse(res));
 						}
 						}) 
-       
-       
-				
 				
 				//供应商下拉
 				$.ajax({
@@ -362,7 +429,6 @@ lo();
 						$.each(res,function(i,obj){
 							$("#supplierSearch").append("<option value="+obj.supplierid+">"+obj.suppliername+"</option>");
 						})
-						
 					}
 				}); 
 				//模拟框数据
@@ -480,9 +546,61 @@ lo();
 			} 
 			
 		
-			
+			//新增采购单
 			function xzhxg(){
-				 alert("新增")
+				var ljhlist=[];
+				$("#tbody2 tr").each(function(a,b){
+					var ljh={};
+					ljh.purchaseid=$("[name=odd]").val();
+					ljh.particularsbarcode=$(this).find("td").eq(1).html()
+					ljh.particularsname=$(this).find("td").eq(2).html()
+					ljh.particularsspecification=$(this).find("td").eq(3).find("span").eq(0).html()
+					ljh.particularscostprice=$(this).find("td").eq(4).html()
+					ljh.particularsquantity=$(this).find("td").eq(5).find("input").eq(0).val()
+					ljh.particularsamount=$(this).find("td").eq(6).find("span").eq(0).html()
+					ljhlist[a]=ljh;
+					
+				})
+				var purchaseid=$("[name=odd]").val();
+				var deliverytime=$("[name=deliverydate]").val();
+				var supplierid=$("[name=supp]").val();
+                var lister=$("[name=zbiaor]").val();
+				var remark=$("[name=remark]").val();
+				var aggregateamount=$("#moeny").text();
+				var totalquantity=$("#num").text();
+					/* alert($(this).attr("selected")) */
+				
+						var supplier2;
+						$("#supplierSearch option").each(function(){
+							if($(this).prop("selected")==true){
+								
+								supplier2=$(this).text();
+							}
+						})
+				
+				var obj = {
+						purchaseid:purchaseid,	
+						deliverytime:deliverytime,
+						supplierid:supplierid,
+						lister:lister,
+						remark:remark,
+						aggregateamount:aggregateamount,
+						totalquantity:totalquantity,
+						supplier2:supplier2,
+						jb:ljhlist
+				}
+				
+				 $.ajax({
+					url : "/insertpurchasenote",
+					contentType : "application/json",
+					data : JSON.stringify(obj),
+					type : "post",
+					"success":function(res){
+						console.info(res)
+					}
+					
+				}); 
+ 
 			}  
 			
 			

@@ -1,6 +1,7 @@
 package com.aptech.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -17,6 +18,13 @@ public class Purchasenote {
   private float aggregateamount;
   private int totalquantity;
   private String Supplier2;
+  public List<Particulars> jb;
+public List<Particulars> getJb() {
+	return jb;
+}
+public void setJb(List<Particulars> jb) {
+	this.jb = jb;
+}
 public String getPurchaseid() {
 	return purchaseid;
 }

@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.aptech.domain.Goods;
 import com.aptech.domain.Goodstype;
 import com.aptech.domain.Particulars;
@@ -160,5 +159,19 @@ public class GoodsService {
 		return mapper04.selectparticularsid(purchaseid);
 	}
 	
+	public int insertpurchasenote(Purchasenote pu) {
+		return mapper03.insertpurchasenote(pu);
+	}
 	
+	public int insertpurchasenot(Purchasenote pu) {
+		return mapper03.insertpurchasenot(pu);
+	}
+	
+	public int insertpurchasenotekk(Purchasenote pu) {
+		return mapper03.insertpurchasenotekk(pu);
+	}
+	
+	public int insertpurchasenotkk(Purchasenote pu) {
+		return mapper03.insertpurchasenotkk(pu);
+	}
 }

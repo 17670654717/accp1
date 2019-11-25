@@ -237,4 +237,41 @@ WHERE    #{deliverytime2} >= `deliverytime` AND `deliverytime` >= #{deliverytime
     SELECT * FROM `purchasenote` 
 WHERE purchaseid=#{purchaseid}
   </select>
+  
+  <insert id="insertpurchasenote" parameterType="com.aptech.domain.Purchasenote">
+		INSERT INTO `purchasenote`(`purchaseid`,`deliverytime`,`Supplierid`,`lister`,`remark`,`aggregateamount`,`totalquantity`,`supplier2`)
+		VALUE(#{purchaseid},#{deliverytime},#{supplierid},#{lister},#{remark},#{aggregateamount},#{totalquantity},#{supplier2})
+		
+		
+	</insert>
+	 <insert id="insertpurchasenot" parameterType="com.aptech.domain.Purchasenote">
+		
+		INSERT INTO `particulars`(`purchaseid`,`particularsbarcode`,`particularsname`,`particularsspecification`,`particularscostprice`,`particularsquantity`,`particularsamount`)
+		VALUE
+		<foreach collection="jb" item="d" separator="),(" open="(" close=")">
+			#{d.purchaseid},#{d.particularsbarcode},#{d.particularsname},#{d.particularsspecification},#{d.particularscostprice},#{d.particularsquantity},#{d.particularsamount}
+		</foreach>
+		
+	</insert>
+	
+	
+	
+	
+	<insert id="insertpurchasenotekk" parameterType="com.aptech.domain.Purchasenote">
+		INSERT INTO `purchasenote`(`purchaseid`,`deliverytime`,`Supplierid`,`lister`,`remark`,`aggregateamount`,`totalquantity`,`supplier2`)
+		VALUE(#{purchaseid},#{deliverytime},#{supplierid},#{lister},#{remark},#{aggregateamount},#{totalquantity},#{supplier2})
+		
+		
+	</insert>
+	 <insert id="insertpurchasenotkk" parameterType="com.aptech.domain.Purchasenote">
+		
+		INSERT INTO `particulars`(`purchaseid`,`particularsbarcode`,`particularsname`,`particularsspecification`,`particularscostprice`,`particularsquantity`,`particularsamount`)
+		VALUE
+		<foreach collection="jb" item="d" separator="),(" open="(" close=")">
+			#{d.purchaseid},#{d.particularsbarcode},#{d.particularsname},#{d.particularsspecification},#{d.particularscostprice},#{d.particularsquantity},#{d.particularsamount}
+		</foreach>
+		
+	</insert>
+  
+  
 </mapper>

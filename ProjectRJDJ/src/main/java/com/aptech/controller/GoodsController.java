@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.aptech.domain.Goods;
 import com.aptech.domain.Goodstype;
 import com.aptech.domain.Particulars;
@@ -233,6 +234,27 @@ public class GoodsController {
 	@ResponseBody
 	public List<Particulars> selectparticularsid(Particulars purchaseid){
 		List<Particulars>  list= sb.selectparticularsid(purchaseid);
+		return list;
+	}
+	
+	
+	
+	@RequestMapping("/insertpurchasenote")
+	@ResponseBody
+	public int insertpurchasenote(@RequestBody Purchasenote pu) {
+		System.out.println("数据；aaaaaaaaaaaaaaaaaaa"+JSON.toJSONString(pu));
+		int list=sb.insertpurchasenote(pu);
+		int kk=sb.insertpurchasenot(pu);
+		return list;
+	}
+	
+	
+	@RequestMapping("/insertpurchasenotekk")
+	@ResponseBody
+	public int insertpurchasenotekk(@RequestBody Purchasenote pu) {
+		System.out.println("数据"+JSON.toJSONString(pu));
+		int list=sb.insertpurchasenotekk(pu);
+		int kk=sb.insertpurchasenotkk(pu);
 		return list;
 	}
 	

@@ -1,5 +1,4 @@
 package com.aptech.mapper;
-
 import com.aptech.domain.Purchasenote;
 import com.aptech.domain.PurchasenoteExample;
 import com.aptech.domain.Supplier;
@@ -37,4 +36,11 @@ public interface PurchasenoteMapper {
     
     List<Purchasenote> selectpurchasenoteok(String deliverytime2,String deliverytime1,String supplier2,String purchaseid);
      List<Purchasenote> selectpurchasenoteid(Purchasenote purchaseid);
+     
+ 	 int insertpurchasenote(Purchasenote pu);
+ 	 int insertpurchasenot(Purchasenote pu);
+ 	 
+ 	 int insertpurchasenotekk(Purchasenote pu);
+ 	 int insertpurchasenotkk(Purchasenote pu);
+
 }
